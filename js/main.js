@@ -14,17 +14,12 @@
 // timer - number - miliseconds
 // activeProject - {}
 
-function generateID() {
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return (
-    "_" +
-    Math.random()
-      .toString(36)
-      .substr(2, 9)
-  );
-}
+// workflow
+// create a project - display info
+// show next session
+// start session
+// pause-unpause session
+// end session - update project(totalTime, session)
 
 function Project(name, description) {
   const today = new Date().toDateString();
@@ -32,6 +27,7 @@ function Project(name, description) {
   this.name = name;
   this.description = description;
   this.sessions = [];
+  this.currentSession = new Session();
   this.totalTime = 0;
   this.startDate = today;
   this.endDate = "";
@@ -48,10 +44,32 @@ Project.prototype.generateId = function() {
       .substr(2, 9);
 };
 
+Project.prototype.render = function() {
+  // TODO: render project html
+  const htmlString = `<li class="project"></li>`;
+};
+
 function Session() {
+  // initiate a new timer
+  this.clock = new Timer();
   this.date = new Date().toDateString();
-  this.time = 0; // TODO: call timer - display the time spent
+  this.time = this.clock.totalTime;
 }
+
+Session.prototype.onStart = function() {
+  // start timer
+  this.clock.onStart();
+  // TODO: html - show time, change start btn to pause
+};
+
+Session.prototype.onStop = function() {
+  this.clock.onStop();
+  // TODO: html: ask for end session confirmation, stop clock, display info-panel with session info, add timer.totalTime to session.time, add session.time to project.totalTime, add session to project.sessions, remove timer from session?
+};
+
+Session.prototype.onPause = function() {
+  this.clock.onPause();
+};
 
 function Timer() {
   this.start = 0;
@@ -59,6 +77,7 @@ function Timer() {
   this.pauseTime = 0;
   this.totalTime = 0;
   this.running = false;
+  this.timer = null;
 }
 
 Timer.prototype.onStart = function() {
@@ -94,5 +113,7 @@ Timer.prototype.display = function() {
   console.log(Math.floor(this.totalTime / 1000));
 };
 
-let test = new Timer();
-test.onStart();
+// let test = new Timer();
+// test.onStart();
+
+// let test = new Project("test project", "description for a test project");

@@ -1,0 +1,30 @@
+// project
+
+.project {
+  .card {
+    transition: all 0.4s;
+    &:hover {
+      border-color: tomato;
+      cursor: pointer;
+    }
+  }
+  .card-body {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+  }
+
+  .status {
+    display: flex;
+    align-items: center;
+    align-content: center;
+
+    .oi-media-record.open {
+      color: green;
+    }
+    .oi-media-record.closed {
+      color: red;
+    }
+  }
+}

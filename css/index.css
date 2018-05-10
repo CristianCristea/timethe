@@ -1,0 +1,24 @@
+ul {
+  list-style-type: none;
+  padding: 0; }
+
+.project .card {
+  transition: all 0.4s; }
+  .project .card:hover {
+    border-color: tomato;
+    cursor: pointer; }
+.project .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center; }
+.project .status {
+  display: flex;
+  align-items: center;
+  align-content: center; }
+  .project .status .oi-media-record.open {
+    color: green; }
+  .project .status .oi-media-record.closed {
+    color: red; }
+
+/*# sourceMappingURL=index.css.map */
