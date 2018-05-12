@@ -18,7 +18,9 @@
       <div class="container">
         <div class="row">
           <div class="col-sm-12">
-            <h3 class="display-4">TIMETHE</h3>
+            <a href="index.html" class="logo">
+              <h2 class="display-4">TIMETHE</h2>
+            </a>
             <p class="lead">Track the time you work on you projects.</p>
           </div>
         </div>
@@ -30,7 +32,8 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
-          <a class="btn btn-primary btn-lg" href="#" role="button">Add project</a>
+          <!-- Button trigger modal -->
+          <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter" role="button">New Project</button>
         </div>
       </div>
     </div>
@@ -41,27 +44,28 @@
       <div class="row">
         <div class="col-sm-12">
           <ul id="projects">
-            <li class="project mb-2">
 
+            <li class="project mb-2">
               <div class="card">
                 <div class="card-body">
-
                   <a href="projects/project-one.html">
                     <h5 class="card-title">Project title</h5>
                   </a>
-
                   <div class="status mr-3">
                     <span class="oi oi-media-record mr-1 open"></span>
-                    <span>open</span>
+                    <span class="mr-2">open</span>
                   </div>
                   <a href="#" class="btn btn-danger">Settings</a>
                 </div>
               </div>
             </li>
+
             <li class="project mb-2">
               <div class="card">
                 <div class="card-body">
-                  <h5 class="card-title">Project title</h5>
+                  <a href="projects/project-one.html">
+                    <h5 class="card-title">Project title</h5>
+                  </a>
                   <div class="status mr-3">
                     <span class="oi oi-media-record mr-1 closed"></span>
                     <span>closed</span>
@@ -70,7 +74,47 @@
                 </div>
               </div>
             </li>
+
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <section class="add-project-form">
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">Create a new Project</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="Project Name" required minlength="3">
+              </div>
+
+              <div class="form-group">
+                <label for="subtitle">Subtitle or Motto</label>
+                <input type="subtitle" class="form-control" id="subtitle" aria-describedby="subtitle" placeholder="Optional Project Motto">
+              </div>
+
+              <div class="form-group">
+                <label for="exampleFormControlTextarea1">Description:</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required minlength="10"></textarea>
+              </div>
+
+              <div class="modal-footer">
+                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -2,6 +2,10 @@ ul {
   list-style-type: none;
   padding: 0; }
 
+header .logo {
+  text-decoration: none;
+  color: inherit; }
+
 .project a[href^="project"] {
   color: inherit;
   flex: 2 0; }
