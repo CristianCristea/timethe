@@ -53,7 +53,7 @@
                   </a>
                   <div class="status mr-3">
                     <span class="oi oi-media-record mr-1 open"></span>
-                    <span class="mr-2">open</span>
+                    <span class="mr-2">running</span>
                   </div>
                   <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
                 </div>
@@ -96,17 +96,13 @@
             <form>
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="name" class="form-control" id="name" aria-describedby="name" placeholder="Project Name" required minlength="3">
-              </div>
-
-              <div class="form-group">
-                <label for="subtitle">Subtitle or Motto</label>
-                <input type="subtitle" class="form-control" id="subtitle" aria-describedby="subtitle" placeholder="Optional Project Motto">
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="name" placeholder="Project Name" required
+                  minlength="3">
               </div>
 
               <div class="form-group">
                 <label for="exampleFormControlTextarea1">Description:</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" required minlength="10"></textarea>
+                <textarea class="form-control" name="description" id="description" rows="3" required minlength="10"></textarea>
               </div>
 
               <div class="modal-footer">
