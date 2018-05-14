@@ -31,6 +31,7 @@ function Project(name, description) {
   this.startDate = today;
   this.endDate = "";
   this.updates = 0;
+  this.defaultUser = "@cristian";
 
   this.generateId();
 }
@@ -136,11 +137,11 @@ const app = {
     <div class="card">
       <div class="card-body">
         <h5 class="card-title">${name}</h5>
-        <div class="status mr-3">
+        <div class="status mr-3 d-none">
           <span class="oi oi-media-record mr-1 open"></span>
           <span class="mr-2">running</span>
         </div>
-        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</button>
       </div>
     </div>
   </li>`;
@@ -164,8 +165,15 @@ const app = {
     return localStorage.state;
   },
 
+  renderProjectPage: function(project) {
+    let { name, description } = project;
+    $("#projectTitle").text(name);
+    $("#projectDescription").text(description);
+  },
+
   init: function() {
     let self = this;
+    let $projectsList = $("#projects");
     const projects = JSON.parse(self.getState()).projects;
 
     // render projects from localStorage - initial state
@@ -178,6 +186,25 @@ const app = {
         e.preventDefault();
         self.createProject(e);
       });
+
+    // render single project
+    $projectsList.click(function(e) {
+      if (e.target.tagName !== "BUTTON") {
+        // select project
+        let projectIndex = $(e.currentTarget)
+          .find("li")
+          .index($(e.target).parents("li"));
+        let project = projects[projectIndex - 1];
+
+        // hide projects list and new project btn
+        $(".projects, .call-to-action").addClass("d-none");
+        // display single page
+        $(".single-project").addClass("d-block");
+
+        // render single project
+        self.renderProjectPage(project);
+      }
+    });
   }
 };
 
