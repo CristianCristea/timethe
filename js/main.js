@@ -12,7 +12,6 @@
 // project - {id: number, name: string, description: string, totalTime: number, sessions - {date: duration}, startDate: string, endDate: string, updates: number}
 // projects - []
 // timer - number - miliseconds
-// activeProject - {}
 
 // workflow
 // create a project - display info
@@ -42,11 +41,6 @@ Project.prototype.generateId = function() {
     Math.random()
       .toString(36)
       .substr(2, 9);
-};
-
-Project.prototype.render = function() {
-  // TODO: render project html
-  const htmlString = `<li class="project"></li>`;
 };
 
 function Session() {
@@ -113,7 +107,119 @@ Timer.prototype.display = function() {
   console.log(Math.floor(this.totalTime / 1000));
 };
 
-// let test = new Timer();
-// test.onStart();
+function Display(data) {
+  this.data = data;
+}
 
-// let test = new Project("test project", "description for a test project");
+function renderProject(name) {
+  // TODO: render project html
+  return `<li class="project mb-2">
+  <div class="card">
+    <div class="card-body">
+      <a href="projects/project-one.html">
+        <h5 class="card-title">${name}</h5>
+      </a>
+      <div class="status mr-3">
+        <span class="oi oi-media-record mr-1 open"></span>
+        <span class="mr-2">open</span>
+      </div>
+      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
+    </div>
+  </div>
+</li>`;
+}
+
+const app = {
+  createProject: function(e) {
+    let form = e.target;
+    let formData = $(e.target)
+      .first()
+      .serializeArray();
+    let name = formData[0].value;
+    let description = formData[1].value;
+    let project = new Project(name, description);
+    // save in localStorate
+    this.setProject(project);
+
+    // render project
+    this.renderProject(formData[0].value);
+
+    // hide modal and  reset form
+    $("#newProject").modal("hide");
+    $(e.target)[0].reset();
+  },
+
+  renderProject: function(name) {
+    const $projects = $("#projects");
+    let project = `<li class="project mb-2">
+      <div class="card">
+        <div class="card-body">
+          <a href="projects/project-one.html">
+            <h5 class="card-title">${name}</h5>
+          </a>
+          <div class="status mr-3">
+            <span class="oi oi-media-record mr-1 open"></span>
+            <span class="mr-2">running</span>
+          </div>
+          <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
+        </div>
+      </div>
+    </li>`;
+    $projects.append(project);
+  },
+
+  renderProjects: function(projects) {},
+  setProject: function(project) {
+    const state = JSON.parse(localStorage.getItem("state")) || { projects: [] };
+    state.projects.push(project);
+    localStorage.setItem("state", JSON.stringify(state));
+
+    console.log(localStorage);
+  },
+
+  getState: function() {
+    return localStorage.state;
+  },
+
+  init: function() {
+    let self = this;
+
+    $newProject = $("#newProject");
+    $newProject.find("form").on("submit", function(e) {
+      e.preventDefault();
+      // create, store and render project
+      self.createProject(e);
+    });
+  }
+};
+
+// function renderProjects(arr, domNode) {
+//   let html = "";
+//   // render projects
+//   state.projects.map(project => (html += renderProject(project.name)));
+//   domNode.html(html);
+// }
+
+// on submit addProject form
+// create new Project with the form data
+//
+$(function() {
+  app.init();
+});
+
+// $newProject = $("#newProject");
+// $newProject.find("form").on("submit", function(e) {
+//   e.preventDefault();
+//   let form = e.target;
+//   let name = form.name.value;
+//   let description = form.description.value;
+
+//   state.projects.push(new Project(name, description));
+//   $newProject.modal("hide");
+
+//   // render project
+//   $("#projects").append(renderProject(name));
+
+//   // reset form
+//   $(this).reset();
+// });
