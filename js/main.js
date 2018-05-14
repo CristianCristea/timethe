@@ -111,24 +111,6 @@ function Display(data) {
   this.data = data;
 }
 
-function renderProject(name) {
-  // TODO: render project html
-  return `<li class="project mb-2">
-  <div class="card">
-    <div class="card-body">
-      <a href="projects/project-one.html">
-        <h5 class="card-title">${name}</h5>
-      </a>
-      <div class="status mr-3">
-        <span class="oi oi-media-record mr-1 open"></span>
-        <span class="mr-2">open</span>
-      </div>
-      <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
-    </div>
-  </div>
-</li>`;
-}
-
 const app = {
   createProject: function(e) {
     let form = e.target;
@@ -142,39 +124,40 @@ const app = {
     this.setProject(project);
 
     // render project
-    this.renderProject(formData[0].value);
+    $("#projects").append(this.createProjectMarkup(name));
 
     // hide modal and  reset form
     $("#newProject").modal("hide");
     $(e.target)[0].reset();
   },
 
-  renderProject: function(name) {
-    const $projects = $("#projects");
-    let project = `<li class="project mb-2">
-      <div class="card">
-        <div class="card-body">
-          <a href="projects/project-one.html">
-            <h5 class="card-title">${name}</h5>
-          </a>
-          <div class="status mr-3">
-            <span class="oi oi-media-record mr-1 open"></span>
-            <span class="mr-2">running</span>
-          </div>
-          <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
+  createProjectMarkup: function(name) {
+    return `<li class="project mb-2">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">${name}</h5>
+        <div class="status mr-3">
+          <span class="oi oi-media-record mr-1 open"></span>
+          <span class="mr-2">running</span>
         </div>
+        <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</a>
       </div>
-    </li>`;
-    $projects.append(project);
+    </div>
+  </li>`;
   },
 
-  renderProjects: function(projects) {},
+  renderProjects: function(projects) {
+    let markup = "";
+    projects.forEach(
+      project => (markup += this.createProjectMarkup(project.name))
+    );
+    $("#projects").append(markup);
+  },
+
   setProject: function(project) {
     const state = JSON.parse(localStorage.getItem("state")) || { projects: [] };
     state.projects.push(project);
     localStorage.setItem("state", JSON.stringify(state));
-
-    console.log(localStorage);
   },
 
   getState: function() {
@@ -183,43 +166,21 @@ const app = {
 
   init: function() {
     let self = this;
+    const projects = JSON.parse(self.getState()).projects;
 
-    $newProject = $("#newProject");
-    $newProject.find("form").on("submit", function(e) {
-      e.preventDefault();
-      // create, store and render project
-      self.createProject(e);
-    });
+    // render projects from localStorage - initial state
+    self.renderProjects(projects);
+
+    // create, store and render a new project on form submit
+    $("#newProject")
+      .find("form")
+      .on("submit", function(e) {
+        e.preventDefault();
+        self.createProject(e);
+      });
   }
 };
 
-// function renderProjects(arr, domNode) {
-//   let html = "";
-//   // render projects
-//   state.projects.map(project => (html += renderProject(project.name)));
-//   domNode.html(html);
-// }
-
-// on submit addProject form
-// create new Project with the form data
-//
 $(function() {
   app.init();
 });
-
-// $newProject = $("#newProject");
-// $newProject.find("form").on("submit", function(e) {
-//   e.preventDefault();
-//   let form = e.target;
-//   let name = form.name.value;
-//   let description = form.description.value;
-
-//   state.projects.push(new Project(name, description));
-//   $newProject.modal("hide");
-
-//   // render project
-//   $("#projects").append(renderProject(name));
-
-//   // reset form
-//   $(this).reset();
-// });
