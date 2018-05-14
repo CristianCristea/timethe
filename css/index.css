@@ -6,9 +6,6 @@ header .logo {
   text-decoration: none;
   color: inherit; }
 
-.project a[href^="project"] {
-  color: inherit;
-  flex: 2 0; }
 .project .card {
   transition: all 0.4s; }
   .project .card:hover {
@@ -19,6 +16,8 @@ header .logo {
   justify-content: space-between;
   align-content: center;
   align-items: center; }
+  .project .card-body .card-title {
+    flex: 2 0; }
 
 .status {
   display: flex;

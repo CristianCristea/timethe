@@ -1,11 +1,6 @@
 // project
 
 .project {
-  a[href^="project"] {
-    color: inherit;
-    flex: 2 0;
-  }
-
   .card {
     transition: all 0.4s;
     &:hover {
@@ -18,6 +13,10 @@
     justify-content: space-between;
     align-content: center;
     align-items: center;
+
+    .card-title {
+      flex: 2 0;
+    }
   }
 }
 
