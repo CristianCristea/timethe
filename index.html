@@ -45,7 +45,7 @@
         <div class="col-sm-12">
           <ul id="projects">
 
-            <li class="project mb-2">
+            <!-- <li class="project mb-2">
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Project title</h5>
@@ -56,7 +56,7 @@
                   <button class="btn btn-danger" data-toggle="modal" data-target="#projectSettings" role="button">Settings</button>
                 </div>
               </div>
-            </li>
+            </li> -->
 
           </ul>
         </div>
@@ -182,20 +182,20 @@
             <form>
               <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" aria-describedby="name" placeholder="Project Name" required minlength="3"
-                  value="Project Name">
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="name" placeholder="Project Name" required
+                  minlength="3" value="Project Name">
               </div>
 
               <div class="form-group">
                 <label for="description">Description:</label>
-                <textarea class="form-control" id="description" rows="3" required minlength="10">Project Description</textarea>
+                <textarea class="form-control" name="description" id="description" rows="3" required minlength="10">Project Description</textarea>
               </div>
 
               <div class="modal-footer">
                 <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                <button type="submit" class="btn btn-primary">Update</button>
-                <button class="btn btn-dark" data-toggle="modal" data-target="#endProject" role="button">End Project</button>
-                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-primary" name="update">Update</button>
+                <button class="btn btn-dark" name="end">End Project</button>
+                <button class="btn btn-danger" name="delete">Delete</button>
               </div>
             </form>
           </div>

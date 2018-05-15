@@ -152,17 +152,23 @@ const app = {
     projects.forEach(
       project => (markup += this.createProjectMarkup(project.name))
     );
-    $("#projects").append(markup);
+    $("#projects").html(markup);
   },
 
   setProject: function(project) {
-    const state = JSON.parse(localStorage.getItem("state")) || { projects: [] };
+    let state = this.getState() || { projects: [] };
     state.projects.push(project);
     localStorage.setItem("state", JSON.stringify(state));
   },
 
   getState: function() {
-    return localStorage.state;
+    return localStorage.state
+      ? JSON.parse(localStorage.getItem("state"))
+      : null;
+  },
+
+  setState: function(newState) {
+    localStorage.setItem("state", JSON.stringify(newState));
   },
 
   renderProjectPage: function(project) {
@@ -171,13 +177,45 @@ const app = {
     $("#projectDescription").text(description);
   },
 
+  updateProject: function(projects, index, newName, newDescription) {
+    // update project
+    let updatedProject = projects[index];
+    updatedProject.name = newName;
+    updatedProject.description = newDescription;
+
+    // update the state
+    projects.splice(index, 1, updatedProject);
+    this.setState({ projects });
+  },
+
+  getProjectIndex: function(e, projects) {
+    let projectIndex = $(e.currentTarget)
+      .find("li")
+      .index($(e.target).parents("li"));
+
+    // 0 based
+    return projectIndex;
+  },
+  // select project
+  selectProject: function(i, projects) {
+    return projects[i];
+  },
+
+  deleteProject: function(index, projects) {
+    let project = projects[index];
+    projects.splice(index, 1);
+    this.setState({ projects });
+  },
+
   init: function() {
     let self = this;
     let $projectsList = $("#projects");
-    const projects = JSON.parse(self.getState()).projects;
-
+    // console.log(self.getState());
     // render projects from localStorage - initial state
-    self.renderProjects(projects);
+    if (self.getState()) {
+      let projects = self.getState().projects;
+      self.renderProjects(projects);
+    }
 
     // create, store and render a new project on form submit
     $("#newProject")
@@ -189,21 +227,59 @@ const app = {
 
     // render single project
     $projectsList.click(function(e) {
+      // select project
+      let projects = self.getState().projects;
+      let projectIndex = self.getProjectIndex(e, projects);
+      let project = self.selectProject(projectIndex, projects);
+      console.log(projectIndex);
+      let { name, description } = project;
       if (e.target.tagName !== "BUTTON") {
-        // select project
-        let projectIndex = $(e.currentTarget)
-          .find("li")
-          .index($(e.target).parents("li"));
-        let project = projects[projectIndex - 1];
-
         // hide projects list and new project btn
         $(".projects, .call-to-action").addClass("d-none");
+
         // display single page
         $(".single-project").addClass("d-block");
 
         // render single project
         self.renderProjectPage(project);
       }
+
+      // fill form with initial data
+      $("#projectSettings")
+        .find("#name")
+        .val(name)
+        .end()
+        .find("#description")
+        .val(description);
+
+      $("#projectSettings")
+        .find("form")
+        .submit(function(e) {
+          e.preventDefault();
+          let formData = $(this).serializeArray();
+          console.log($(this).serializeArray());
+          let newName = formData[0].value;
+          let newDescription = formData[1].value;
+          self.updateProject(projects, projectIndex, newName, newDescription);
+
+          // hide modal
+          $(this)
+            .parents("#projectSettings")
+            .modal("hide");
+
+          // re-render projects
+          self.renderProjects(projects);
+        });
+
+      $("button[name='delete']").click(function(e) {
+        e.preventDefault();
+        self.deleteProject(projectIndex, projects);
+        // hide modal
+        $(this)
+          .parents("#projectSettings")
+          .modal("hide");
+        self.renderProjects(projects);
+      });
     });
   }
 };
@@ -211,3 +287,6 @@ const app = {
 $(function() {
   app.init();
 });
+
+// TODO: settings end
+// TODO: sessions: start, stop, display
