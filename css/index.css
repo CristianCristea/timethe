@@ -1,0 +1,36 @@
+ul {
+  list-style-type: none;
+  padding: 0; }
+
+header .logo {
+  text-decoration: none;
+  color: inherit; }
+
+.project .card {
+  transition: all 0.4s; }
+  .project .card:hover {
+    border-color: tomato;
+    transform: scale(1.02); }
+.project .card-body {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center; }
+  .project .card-body .card-title {
+    flex: 2 0; }
+
+.status {
+  display: flex;
+  align-items: center;
+  align-content: center; }
+  .status .oi-media-record.open {
+    color: green; }
+  .status .oi-media-record.closed {
+    color: red; }
+
+.single-project .display-4 {
+  font-size: 3rem; }
+.single-project .clock {
+  font-size: 2rem; }
+
+/*# sourceMappingURL=index.css.map */
