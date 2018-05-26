@@ -1,9 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './App';
+// TODO
+/*
+1. add project
+2. show list of projects(all, finished, unfinished)
+3. delete project
+4. finish project
 
-it('renders without crashing', () => {
-  const div = document.createElement('div');
-  ReactDOM.render(<App />, div);
-  ReactDOM.unmountComponentAtNode(div);
-});
+components
+AddProject
+Projects
+Project
+
+
+
+*/
