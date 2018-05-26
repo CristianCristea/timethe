@@ -296,3 +296,9 @@ template {
  */
 [hidden] {
   display: none; }
+
+section {
+  margin-top: 3rem; }
+
+.create-project__submit {
+  margin-left: 1em; }

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
 import CreateProject from "./components/CreateProject";
-import AddProjectModal from "./components/AddProjectModal";
 import Projects from "./components/Projects";
 
 class App extends Component {
