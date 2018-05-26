@@ -63,7 +63,11 @@ export default class CreateProject extends React.Component {
               >
                 <ModalHeader toggle={this.toggle}>Create a Project</ModalHeader>
                 <ModalBody>
-                  {this.state.errorMessage && <p>{this.state.errorMessage}</p>}
+                  {this.state.errorMessage && (
+                    <p className="create-project__error">
+                      {this.state.errorMessage}
+                    </p>
+                  )}
                   <Form onSubmit={this.handleSubmit}>
                     <FormGroup>
                       <Label for="name">Name</Label>

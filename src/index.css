@@ -302,3 +302,26 @@ section {
 
 .create-project__submit {
   margin-left: 1em; }
+
+.create-project__error {
+  border: 1px solid tomato;
+  padding: 0.6em;
+  border-radius: 5px;
+  color: tomato;
+  font-weight: 500; }
+
+.project {
+  margin-bottom: 1em; }
+
+.card {
+  transition: all 0.4s; }
+  .card:hover {
+    cursor: pointer;
+    transform: scale(1.02);
+    border-color: tomato; }
+
+.projects__list {
+  list-style: none; }
+
+.projects__action {
+  margin-bottom: 1em; }
