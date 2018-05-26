@@ -1,10 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import { Container, Row, Col, Jumbotron } from "reactstrap";
 
-export default function Header({ title }) {
+export default function Header({ title, subtitle }) {
   return (
     <header>
-      <h2>{title}</h2>
+      <Jumbotron>
+        <Container>
+          <Row>
+            <Col>
+              <h1 className="display-3">{title}</h1>
+              <p className="lead">{subtitle}</p>
+            </Col>
+          </Row>
+        </Container>
+      </Jumbotron>
     </header>
   );
 }
