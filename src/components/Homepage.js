@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "./Header";
-import CreateProject from "./CreateProject";
+import FormModal from "./FormModal";
 import Projects from "./Projects";
 
 const Homepage = ({
@@ -11,8 +10,7 @@ const Homepage = ({
 }) => {
   return (
     <div className="homepage">
-      <Header title="TIMETHE" subtitle="Track the time you work on projects" />
-      <CreateProject handleAddProject={handleAddProject} />
+      <FormModal handleAddProject={handleAddProject} />
       <Projects
         projects={projects}
         handleDeleteProjects={handleDeleteProjects}
