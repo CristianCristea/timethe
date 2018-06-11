@@ -300,6 +300,12 @@ template {
 section {
   margin-top: 3rem; }
 
+.logo {
+  color: inherit; }
+  .logo:hover {
+    text-decoration: none;
+    color: inherit; }
+
 .create-project__submit {
   margin-left: 1em; }
 

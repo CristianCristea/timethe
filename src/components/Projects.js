@@ -8,7 +8,7 @@ const Projects = ({ projects, handleOpenProject }) => (
     <Container>
       <Row>
         <Col>
-          <ul className="projects__list">
+          <ul className="projects__list p-0">
             {projects.map(project => (
               <Project key={project.id} project={project} />
             ))}
