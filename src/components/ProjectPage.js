@@ -1,15 +1,24 @@
 import React from "react";
-import { Route } from "react-router-dom";
-import Header from "./Header";
+import { Container, Row, Col } from "reactstrap";
+import FormModal from "./FormModal";
 
-const ProjectPage = ({ match, projects, selectProject }) => {
-  const project = selectProject(match.params.name, projects);
+const ProjectPage = ({ match, projects, filterProject, handleEditProject }) => {
+  const project = filterProject("name", match.params.name, projects);
   if (project.name) {
     return (
-      <div className="project">
-        <h3>{project.name}</h3>
-        <p>{project.description}</p>
-      </div>
+      <Container>
+        <Row>
+          <Col>
+            <div className="project">
+              <h3 className="display-4">{project.name}</h3>
+              <p className="lead">{project.description}</p>
+            </div>
+          </Col>
+          <Col className="d-flex align-items-center">
+            <FormModal edit={true} />
+          </Col>
+        </Row>
+      </Container>
     );
   }
 };
