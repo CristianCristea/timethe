@@ -1,24 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Row, Col, Button, Card, CardBody, CardTitle } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Row, Col, Card, CardBody, CardTitle } from "reactstrap";
 
-const Project = ({ project, handleDeleteProject }) => (
+const Project = ({ match, project }) => (
   <li className="project">
     <Card>
       <CardBody>
         <Row>
           <Col xs="6">
-            <CardTitle>{project}</CardTitle>
+            <CardTitle>{project.name}</CardTitle>
           </Col>
           <Col xs="6" className="text-right">
-            <Button
-              color="danger"
-              onClick={e => {
-                handleDeleteProject(project);
-              }}
+            <Link
+              className="btn btn-primary btn-success"
+              to={`/projects/${project.name}`}
             >
-              Delete
-            </Button>
+              Open
+            </Link>
           </Col>
         </Row>
       </CardBody>
@@ -29,7 +28,8 @@ const Project = ({ project, handleDeleteProject }) => (
 export default Project;
 
 Project.propTypes = {
-  project: PropTypes.string
+  project: PropTypes.object,
+  handleOpenProject: PropTypes.func
 };
 
 // TODO: implement settings - not delete
