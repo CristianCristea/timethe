@@ -317,7 +317,6 @@ section {
   transition: all 0.4s; }
   .card:hover {
     cursor: pointer;
-    transform: scale(1.02);
     border-color: tomato; }
 
 .projects__list {
