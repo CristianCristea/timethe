@@ -1,4 +1,5 @@
 import React from "react";
+import uuid from "uuid";
 import {
   Container,
   Row,
@@ -27,7 +28,11 @@ export default class CreateProject extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    const project = e.target.elements.name.value.trim();
+    const project = {
+      id: uuid(),
+      name: e.target.elements.name.value.trim(),
+      description: e.target.elements.description.value.trim()
+    };
 
     // if handleAddProject fires a validation - the if statement will return a string
     // else will return undefined -> errorMessage = undefined
@@ -45,6 +50,7 @@ export default class CreateProject extends React.Component {
 
     // clear the form
     e.target.elements.name.value = "";
+    e.target.elements.description.value = "";
   };
 
   render() {
@@ -77,6 +83,17 @@ export default class CreateProject extends React.Component {
                         id="name"
                         aria-describedby="project name"
                         placeholder="Project Name"
+                      />
+                    </FormGroup>
+
+                    <FormGroup>
+                      <Label for="description">Description</Label>
+                      <Input
+                        type="textarea"
+                        name="description"
+                        id="description"
+                        aria-describedby="Project Description"
+                        placeholder="Project Description"
                       />
                     </FormGroup>
 
