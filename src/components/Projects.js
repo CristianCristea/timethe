@@ -1,27 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Project from "./Project";
-import { Container, Row, Col, Button } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 
-const Projects = props => (
+const Projects = ({ projects, handleOpenProject }) => (
   <section className="projects">
     <Container>
       <Row>
         <Col>
-          <Button
-            color="danger"
-            className="projects__action"
-            onClick={props.handleDeleteProjects}
-          >
-            Delete all Projects
-          </Button>
           <ul className="projects__list">
-            {props.projects.map(project => (
-              <Project
-                key={project}
-                project={project}
-                handleDeleteProject={props.handleDeleteProject}
-              />
+            {projects.map(project => (
+              <Project key={project.id} project={project} />
             ))}
           </ul>
         </Col>
