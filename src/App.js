@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import Header from "./components/Header";
-import CreateProject from "./components/CreateProject";
-import Projects from "./components/Projects";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
+import Homepage from "./components/Homepage";
+import ProjectPage from "./components/ProjectPage";
 
 class App extends Component {
   state = {
-    projects: ["test1", "test2"]
+    projects: [{ id: "uniq_id", name: "test", description: "test description" }]
   };
 
   handleAddProject = project => {
-    console.log("add");
-    if (!project) {
-      return "Enter valid project name";
-    } else if (this.state.projects.indexOf(project) > -1) {
+    const { projects } = this.state;
+    const isProjectUniq =
+      projects.filter(p => project.name === p.name).length === 0;
+
+    if (!project.name || !project.description) {
+      return "Enter valid project name and description";
+    } else if (!isProjectUniq) {
       return "This project already exists";
     }
 
@@ -35,20 +38,40 @@ class App extends Component {
     }));
   };
 
+  selectProject = (projectName, projects) => {
+    return projects.filter(project => projectName === project.name)[0];
+  };
+
   render() {
     return (
-      <div className="app">
-        <Header
-          title="TIMETHE"
-          subtitle="Track the time you work on projects"
-        />
-        <CreateProject handleAddProject={this.handleAddProject} />
-        <Projects
-          projects={this.state.projects}
-          handleDeleteProjects={this.handleDeleteProjects}
-          handleDeleteProject={this.handleDeleteProject}
-        />
-      </div>
+      <BrowserRouter>
+        <div className="app">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              component={() => (
+                <Homepage
+                  handleAddProject={this.handleAddProject}
+                  projects={this.state.projects}
+                  handleDeleteProjects={this.handleDeleteProjects}
+                  handleDeleteProject={this.handleDeleteProject}
+                />
+              )}
+            />
+            <Route
+              path="/projects/:name"
+              render={props => (
+                <ProjectPage
+                  projects={this.state.projects}
+                  selectProject={this.selectProject}
+                  {...props}
+                />
+              )}
+            />;
+          </Switch>
+        </div>
+      </BrowserRouter>
     );
   }
 }
