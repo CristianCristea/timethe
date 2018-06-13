@@ -1,5 +1,5 @@
 import React from "react";
-import ProjectForm from "../Project/Form";
+import { Link } from "react-router-dom";
 import Projects from "../Projects/index";
 
 const HomePage = ({
@@ -10,12 +10,10 @@ const HomePage = ({
 }) => {
   return (
     <div className="homepage">
-      <ProjectForm handleAddProject={handleAddProject} />
-      <Projects
-        projects={projects}
-        handleDeleteProjects={handleDeleteProjects}
-        handleDeleteProject={handleDeleteProject}
-      />
+      <Link to="/create-project" className="btn btn-primary btn-lg">
+        Create Project
+      </Link>
+      <Projects projects={projects} />
     </div>
   );
 };
