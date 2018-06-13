@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Header from "./components/UI/Header";
+import ProjectForm from "./components/Project/Form";
 import HomePage from "./components/views/HomePage";
 import ProjectPage from "./components/views/ProjectPage";
+import NotFound from "./components/404";
 
 class App extends Component {
   state = {
@@ -87,7 +89,7 @@ class App extends Component {
             <Route
               exact
               path="/"
-              component={() => (
+              render={props => (
                 <HomePage
                   handleAddProject={this.handleAddProject}
                   projects={this.state.projects}
@@ -106,7 +108,29 @@ class App extends Component {
                   {...props}
                 />
               )}
-            />;
+            />
+            <Route
+              path="/create-project"
+              render={props => (
+                <ProjectForm
+                  handleAddProject={this.handleAddProject}
+                  {...props}
+                />
+              )}
+            />
+            <Route
+              path="/edit-project/:name"
+              render={props => (
+                <ProjectForm
+                  handleEditProject={this.handleEditProject}
+                  filterProject={this.filterProject}
+                  projects={this.state.projects}
+                  edit={true}
+                  {...props}
+                />
+              )}
+            />
+            <Route component={NotFound} />
           </Switch>
         </div>
       </BrowserRouter>
