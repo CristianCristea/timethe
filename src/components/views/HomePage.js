@@ -1,8 +1,8 @@
 import React from "react";
-import FormModal from "./FormModal";
-import Projects from "./Projects";
+import ProjectForm from "../Project/Form";
+import Projects from "../Projects/index";
 
-const Homepage = ({
+const HomePage = ({
   projects,
   handleDeleteProjects,
   handleDeleteProject,
@@ -10,7 +10,7 @@ const Homepage = ({
 }) => {
   return (
     <div className="homepage">
-      <FormModal handleAddProject={handleAddProject} />
+      <ProjectForm handleAddProject={handleAddProject} />
       <Projects
         projects={projects}
         handleDeleteProjects={handleDeleteProjects}
@@ -20,4 +20,4 @@ const Homepage = ({
   );
 };
 
-export default Homepage;
+export default HomePage;

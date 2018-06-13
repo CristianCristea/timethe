@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import "./project.css";
 import { Row, Col, Card, CardBody, CardTitle } from "reactstrap";
 
 const Project = ({ match, project }) => (
@@ -8,15 +9,9 @@ const Project = ({ match, project }) => (
     <Card>
       <CardBody>
         <Row>
-          <Col xs="6">
-            <CardTitle>{project.name}</CardTitle>
-          </Col>
-          <Col xs="6" className="text-right">
-            <Link
-              className="btn btn-primary btn-success"
-              to={`/projects/${project.name}`}
-            >
-              Open
+          <Col>
+            <Link to={`/projects/${project.name}`}>
+              <CardTitle>{project.name}</CardTitle>
             </Link>
           </Col>
         </Row>

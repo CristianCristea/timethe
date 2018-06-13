@@ -1,0 +1,8 @@
+.project {
+  margin-bottom: 1em; }
+
+.card {
+  transition: all 0.4s; }
+  .card:hover {
+    cursor: pointer;
+    border-color: tomato; }

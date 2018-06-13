@@ -13,8 +13,9 @@ import {
   Label,
   Input
 } from "reactstrap";
+import "./form.css";
 
-export default class FormModal extends React.Component {
+export default class ProjectForm extends React.Component {
   state = {
     modal: false,
     errorMessage: null
@@ -25,9 +26,6 @@ export default class FormModal extends React.Component {
       modal: !this.state.modal
     });
   };
-
-  // TODO: prepopulate form fields on edit
-  loadPrevProject = () => {};
 
   handleSubmit = e => {
     e.preventDefault();
@@ -44,6 +42,13 @@ export default class FormModal extends React.Component {
       // if handleAddProject fires a validation - the if statement will return a string
       // else will return undefined -> errorMessage = undefined
       errorMessage = this.props.handleAddProject(project);
+    } else if (this.props.edit) {
+      const updatedProject = {
+        ...this.props.existingProject,
+        name: e.target.elements.name.value.trim(),
+        description: e.target.elements.description.value.trim()
+      };
+      errorMessage = this.props.handleEditProject(updatedProject);
     }
 
     // if handleAddProject returns an errorMessage update the state
@@ -68,13 +73,7 @@ export default class FormModal extends React.Component {
           <Row>
             <Col>
               {this.props.edit ? (
-                <Button
-                  color="danger"
-                  onClick={() => {
-                    this.toggle();
-                    this.loadPrevProject();
-                  }}
-                >
+                <Button color="danger" onClick={this.toggle}>
                   Edit Project
                 </Button>
               ) : (
@@ -96,7 +95,7 @@ export default class FormModal extends React.Component {
                       {this.state.errorMessage}
                     </p>
                   )}
-                  <Form onSubmit={this.handleSubmit}>
+                  <Form id="projectForm" onSubmit={this.handleSubmit}>
                     <FormGroup>
                       <Label for="name">Name</Label>
                       <Input
@@ -104,7 +103,11 @@ export default class FormModal extends React.Component {
                         name="name"
                         id="name"
                         aria-describedby="project name"
-                        placeholder="Project Name"
+                        placeholder={
+                          this.props.edit
+                            ? this.props.existingProject.name
+                            : "Project Name"
+                        }
                       />
                     </FormGroup>
 
@@ -115,7 +118,11 @@ export default class FormModal extends React.Component {
                         name="description"
                         id="description"
                         aria-describedby="Project Description"
-                        placeholder="Project Description"
+                        placeholder={
+                          this.props.edit
+                            ? this.props.existingProject.description
+                            : "Project Description"
+                        }
                       />
                     </FormGroup>
 

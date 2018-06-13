@@ -1,0 +1,9 @@
+.create-project__submit {
+  margin-left: 1em; }
+
+.create-project__error {
+  border: 1px solid tomato;
+  padding: 0.6em;
+  border-radius: 5px;
+  color: tomato;
+  font-weight: 500; }

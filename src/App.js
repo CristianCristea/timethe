@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import Header from "./components/Header";
-import Homepage from "./components/Homepage";
-import ProjectPage from "./components/ProjectPage";
+import Header from "./components/UI/Header";
+import HomePage from "./components/views/HomePage";
+import ProjectPage from "./components/views/ProjectPage";
 
 class App extends Component {
   state = {
@@ -29,9 +29,7 @@ class App extends Component {
     });
   };
 
-  handleEditProject = (
-    project = { id: "uniq_id", name: "test", description: "test description" }
-  ) => {
+  handleEditProject = project => {
     const { projects } = this.state;
     const projectIndex = this.filterProjectIndex(projects, project);
     const prevProject = projects[projectIndex];
@@ -44,7 +42,7 @@ class App extends Component {
       return {
         projects: prevState.projects
           .slice(0, projectIndex)
-          .concat(project, prevState.projects.slice(projectIndex))
+          .concat(project, prevState.projects.slice(projectIndex + 1))
       };
     });
   };
@@ -77,8 +75,6 @@ class App extends Component {
     return index;
   }
 
-  handleProjectSettings = () => {};
-
   render() {
     return (
       <BrowserRouter>
@@ -92,7 +88,7 @@ class App extends Component {
               exact
               path="/"
               component={() => (
-                <Homepage
+                <HomePage
                   handleAddProject={this.handleAddProject}
                   projects={this.state.projects}
                   handleDeleteProjects={this.handleDeleteProjects}
