@@ -61,11 +61,6 @@ export default class ProjectForm extends React.Component {
         <Container>
           <Row>
             <Col>
-              {this.state.errorMessage && (
-                <p className="create-project__error">
-                  {this.state.errorMessage}
-                </p>
-              )}
               <Form id="projectForm" onSubmit={this.handleSubmit}>
                 <FormGroup>
                   <Label for="name">Name</Label>
