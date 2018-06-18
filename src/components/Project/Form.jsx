@@ -17,7 +17,6 @@ export default class ProjectForm extends React.Component {
     name: this.props.currentProject.name,
     description: this.props.currentProject.description,
     sessions: [],
-    errorMessage: '',
   };
 
   handleSubmit = (e) => {
