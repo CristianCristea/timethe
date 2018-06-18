@@ -12,14 +12,10 @@ import {
 } from 'reactstrap';
 import './form.css';
 
-// TODO: FIX ADD PROJECT PROCESS - CHANGED TO CONTROLLED FORM
-// TODO: FIX VALIDATION
-
 export default class ProjectForm extends React.Component {
   state = {
     name: this.props.currentProject.name,
     description: this.props.currentProject.description,
-    id: '',
     sessions: [],
     errorMessage: '',
   };
@@ -120,6 +116,7 @@ ProjectForm.propTypes = {
   currentProject: PropTypes.object,
   handleAddProject: PropTypes.func,
   handleEditProject: PropTypes.func,
+  history: PropTypes.object.isRequired,
 };
 
 ProjectForm.defaultProps = {
@@ -128,4 +125,6 @@ ProjectForm.defaultProps = {
     name: '',
     description: '',
   },
+  handleAddProject: null,
+  handleEditProject: null,
 };
