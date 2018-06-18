@@ -18,7 +18,7 @@ const ProjectPage = ({
             <p className="lead">{project.description}</p>
           </div>
         </Col>
-        <Link to={`/edit-project/${project.name}`}>Settings</Link>
+        <Link to={`/edit-project/${project.name}`}>Edit</Link>
       </Row>
     </Container>
   );
