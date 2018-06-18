@@ -14,37 +14,18 @@ class App extends Component {
     ],
   };
 
-  handleAddProject = (project) => {
-    const { projects } = this.state;
-    const existingProject = this.filterProject('name', project.name, projects);
-
-    if (!project.name || !project.description) {
-      return 'Enter valid project name and description';
-    } else if (existingProject) {
-      return 'This project already exists';
-    }
-
-    this.setState(prevState => ({ projects: prevState.projects.concat(project) }));
-
-    return false;
-  };
+  handleAddProject = project => (this.setState(prevState =>
+    ({ projects: prevState.projects.concat(project) })));
 
   handleEditProject = (project) => {
     const { projects } = this.state;
     const projectIndex = this.filterProjectIndex(projects, project);
-    const prevProject = projects[projectIndex];
-
-    if (!prevProject.name || !prevProject.description) {
-      return 'Enter a name and description';
-    }
 
     this.setState(prevState => ({
       projects: prevState.projects
         .slice(0, projectIndex)
         .concat(project, prevState.projects.slice(projectIndex + 1)),
     }));
-
-    return false;
   };
 
   handleDeleteProjects = () => {
@@ -74,6 +55,7 @@ class App extends Component {
   }
 
   render() {
+    const { projects } = this.state;
     return (
       <BrowserRouter>
         <div className="app">
@@ -87,10 +69,7 @@ class App extends Component {
               path="/"
               render={() => (
                 <HomePage
-                  handleAddProject={this.handleAddProject}
-                  projects={this.state.projects}
-                  handleDeleteProjects={this.handleDeleteProjects}
-                  handleDeleteProject={this.handleDeleteProject}
+                  projects={projects}
                 />
               )}
             />
@@ -98,7 +77,7 @@ class App extends Component {
               path="/projects/:name"
               render={props => (
                 <ProjectPage
-                  projects={this.state.projects}
+                  projects={projects}
                   filterProject={this.filterProject}
                   handleEditProject={this.handleEditProject}
                   {...props}
@@ -116,15 +95,15 @@ class App extends Component {
             />
             <Route
               path="/edit-project/:name"
-              render={props => (
-                <ProjectForm
+              render={(props) => {
+                const project = this.filterProject('name', props.match.params.name, projects);
+                return (<ProjectForm
                   handleEditProject={this.handleEditProject}
-                  filterProject={this.filterProject}
-                  projects={this.state.projects}
+                  currentProject={project}
                   edit
                   {...props}
-                />
-              )}
+                />);
+              }}
             />
             <Route component={NotFound} />
           </Switch>
