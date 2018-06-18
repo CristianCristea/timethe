@@ -22,11 +22,10 @@ export default class ProjectForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const { name, description, sessions } = this.state;
 
     // add new Project
     if (!this.props.edit) {
-      const { name, description, sessions } = this.state;
-
       const project = {
         name: name.trim(),
         description: description.trim(),
@@ -39,7 +38,6 @@ export default class ProjectForm extends React.Component {
 
     // edit Project
     if (this.props.edit) {
-      const { name, description } = this.state;
       const project = {
         ...this.props.currentProject,
         name,
