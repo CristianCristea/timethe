@@ -1,5 +1,8 @@
-# Data Structure
+# TODO
+- implement project startDate -moment.js
+- implement project sessions
 
+# Data Structure
 ```js
 {
   projects: [
@@ -17,14 +20,5 @@
       ]
     }
   ],
-  activeProject: boolean
 }
 ```
-
-App.js - handleAddProject(project) - if a form field is empty or name is duplicate return a string else add the project to the state
-Homepage.js - renders FormModal, pass handleAddProject
-FormModal.js - renders Btn, render Form, handles form submit, creates project, store the errorMessage in the state if it exists, display error if it exists
-
-App.js handleEditProject(project)
-check if fields are valid - not empty not the same as prev
-replace the old project with the new one
