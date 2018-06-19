@@ -19,13 +19,9 @@ class App extends Component {
 
   handleEditProject = (project) => {
     const { projects } = this.state;
-    const projectIndex = this.filterProjectIndex(projects, project);
+    const newProjects = projects.map(p => (p.id === project.id ? project : p))
 
-    this.setState(prevState => ({
-      projects: prevState.projects
-        .slice(0, projectIndex)
-        .concat(project, prevState.projects.slice(projectIndex + 1)),
-    }));
+    this.setState({ projects: newProjects });
   };
 
   handleDeleteProjects = () => {
