@@ -19,7 +19,7 @@ class App extends Component {
 
   handleEditProject = (project) => {
     const { projects } = this.state;
-    const newProjects = projects.map(p => (p.id === project.id ? project : p))
+    const newProjects = projects.map(p => (p.id === project.id ? project : p));
 
     this.setState({ projects: newProjects });
   };
@@ -37,18 +37,6 @@ class App extends Component {
   filterProject = (propKey, propValue, projects) =>
     (projects.filter(project => propValue === project[propKey])[0]);
   ;
-
-  filterProjectIndex(projects, project) {
-    this.index = -1;
-
-    projects.forEach((p, i) => {
-      if (project.id === p.id) {
-        this.index = i;
-      }
-    });
-
-    return this.index;
-  }
 
   render() {
     const { projects } = this.state;
