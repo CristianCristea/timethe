@@ -1,5 +1,5 @@
 # Project Timethe
 
-Project Time Tracker - measure time spent on projects
+Project Time Tracker - Track the time spent working on projects
 
 MIT license
