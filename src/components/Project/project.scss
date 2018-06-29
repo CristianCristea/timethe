@@ -1,3 +1,6 @@
+// import variables - colors;
+@import '../../scss/config';
+
 .project {
   margin-bottom: 1em;
 }
@@ -9,11 +12,14 @@
 }
 
 .card {
+  border-width: 2px;
+  border-radius: 10px;
   transition: all 0.4s;
   &:hover {
     cursor: pointer;
-    border-color: tomato;
-    text-decoration: none;
+    border-color: $primary-accent-color;
+    border-width: 2px;
+
   }
 }
 

@@ -1,7 +1,6 @@
-.create-project__error {
-  border: 1px solid tomato;
-  padding: 0.6em;
-  border-radius: 5px;
-  color: tomato;
-  font-weight: 500;
+// import variables - colors;
+@import '../../scss/config';
+
+.ProjectForm {
+  margin-top: 5rem;
 }

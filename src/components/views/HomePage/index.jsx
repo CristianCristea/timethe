@@ -12,7 +12,7 @@ const HomePage = ({ projects }) => (
     <Container>
       <Row>
         <Col>
-          <Link to="/create-project" className="btn btn-primary btn-lg mb-5">
+          <Link to="/create-project" className="btn btn-success btn-lg mb-5">
             Create Project
           </Link>
         </Col>

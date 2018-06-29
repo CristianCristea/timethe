@@ -1,3 +1,27 @@
+.btn-warning,
+.btn-success {
+  background-color: #08a045;
+  border-color: #08a045; }
+  .btn-warning:hover,
+  .btn-success:hover {
+    background-color: #0b6e4f;
+    border-color: #0b6e4f; }
+
+.btn-primary {
+  background-color: #0070AF;
+  border-color: #0070AF; }
+  .btn-primary:hover {
+    background-color: #0A3A56;
+    border-color: #0A3A56; }
+  .btn-primary:disabled {
+    background-color: #0070AF;
+    border-color: #0070AF; }
+
+.alert-info {
+  color: #0b6e4f;
+  background-color: #7ae582;
+  border-color: #7ae582; }
+
 .project {
   margin-bottom: 1em; }
 
@@ -5,11 +29,13 @@
   text-decoration: none; }
 
 .card {
+  border-width: 2px;
+  border-radius: 10px;
   transition: all 0.4s; }
   .card:hover {
     cursor: pointer;
-    border-color: tomato;
-    text-decoration: none; }
+    border-color: #0A3A56;
+    border-width: 2px; }
 
 .card-body {
   color: initial; }

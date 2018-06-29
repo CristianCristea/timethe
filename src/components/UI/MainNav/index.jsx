@@ -27,17 +27,17 @@ export default class MainNav extends React.Component {
   }
   render() {
     return (
-      <div className="Sidebar">
-        <Navbar dark expand="md" className="mb-5" style={{ backgroundColor: '#000' }}>
+      <div className="MainNav">
+        <Navbar dark expand="md" className="mb-5">
           <Container>
             <NavbarBrand href="/">T</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="pl-3 text-center">
-                <NavItem>
+                <NavItem className="main-nav-link">
                   <Link className="nav-link active" to="/">Projects</Link>
                 </NavItem>
-                <NavItem>
+                <NavItem className="main-nav-link">
                   <Link className="nav-link" to="/archived-projects">Archive</Link>
                 </NavItem>
               </Nav>

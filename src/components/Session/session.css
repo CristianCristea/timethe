@@ -22,13 +22,5 @@
   background-color: #7ae582;
   border-color: #7ae582; }
 
-.logo {
-  color: inherit; }
-  .logo:hover {
-    text-decoration: none;
-    color: inherit; }
-
-.hero {
-  background-color: #0070AF;
-  color: #fff;
-  border-radius: 0; }
+.Session {
+  font-weight: 600; }

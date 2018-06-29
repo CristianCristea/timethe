@@ -22,9 +22,15 @@ export default class ProjectForm extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { name, description } = this.state;
+    const {
+      edit,
+      handleAddProject,
+      currentProject,
+      handleEditProject,
+    } = this.props;
 
     // add new Project
-    if (!this.props.edit) {
+    if (!edit) {
       const project = {
         name: name.trim(),
         description: description.trim(),
@@ -33,18 +39,18 @@ export default class ProjectForm extends React.Component {
         startDate: moment().format('dddd, DD MM YYYY'),
       };
 
-      this.props.handleAddProject(project);
+      handleAddProject(project);
     }
 
     // edit Project
-    if (this.props.edit) {
+    if (edit) {
       const project = {
-        ...this.props.currentProject,
+        ...currentProject,
         name,
         description,
       };
 
-      this.props.handleEditProject(project);
+      handleEditProject(project);
     }
 
     // redirect to dashboard after form submision
@@ -56,19 +62,25 @@ export default class ProjectForm extends React.Component {
   isFormCompleted = () => (this.state.name.length > 2);
 
   render() {
+    const { edit } = this.props;
+    const { name, description } = this.state;
+
     return (
-      <section className="create-project">
+      <section className="ProjectForm">
         <Container>
           <Row>
-            <Col>
+            <Col sm={{ size: 10, offset: 1 }} md={{ size: 6, offset: 3 }}>
               <Form id="projectForm" onSubmit={this.handleSubmit}>
+                <FormGroup className="mb-5">
+                  <h3>{edit ? 'Update' : 'Create'} project</h3>
+                </FormGroup>
                 <FormGroup>
                   <Label for="name">Name</Label>
                   <Input
                     type="text"
                     name="name"
                     id="name"
-                    value={this.state.name}
+                    value={name}
                     aria-describedby="name"
                     placeholder="Minimum 3 letters"
                     onChange={this.handleTextChange}
@@ -81,7 +93,7 @@ export default class ProjectForm extends React.Component {
                     type="textarea"
                     name="description"
                     id="description"
-                    value={this.state.description}
+                    value={description}
                     aria-describedby="Project Description"
                     placeholder="Optional Description"
                     onChange={this.handleTextChange}
@@ -93,7 +105,7 @@ export default class ProjectForm extends React.Component {
                   className="btn btn-primary create-project__submit"
                   disabled={!this.isFormCompleted()}
                 >
-                  {this.props.edit ? 'Update' : 'Create'} project
+                  {edit ? 'Update' : 'Create'} project
                 </button>
               </Form>
             </Col>

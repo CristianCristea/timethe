@@ -1,3 +1,6 @@
+// import variables - colors;
+@import '../../../scss/config';
+
 .logo {
   color: inherit;
 
@@ -5,4 +8,10 @@
     text-decoration: none;
     color: inherit;
   }
+}
+
+.hero {
+  background-color: $primary-color;
+  color: #fff;
+  border-radius: 0;
 }

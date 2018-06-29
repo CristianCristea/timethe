@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './session.css';
 
 export default function Session({ session, formatTime, index }) {
   const { date, note, seconds } = session;

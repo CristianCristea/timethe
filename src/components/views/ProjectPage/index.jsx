@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ButtonGroup, Button, Container, Row, Col, Badge } from 'reactstrap';
+import { Button, Container, Row, Col, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import Timer from '../../UI/Timer';
 import MainNav from '../../UI/MainNav';
@@ -41,26 +41,24 @@ export default function ProjectPage({
             </Row>
           </Col>
           <Col className="text-right">
-            <ButtonGroup vertical className="ProjectSettings">
-              <Link to={`/edit-project/${currentProject.name}`} className="btn btn-warning">Edit</Link>
-              <AlertBox
-                btnName="Finish"
-                color="success"
-                text="Are you sure you want to finish the project?"
-                history={history}
-                currentProject={currentProject}
-                handleFinishProject={handleFinishProject}
-              />
-              <AlertBox
-                btnName="Delete"
-                color="danger"
-                text="Are you sure you want to delete the project?"
-                currentProject={currentProject}
-                handleDeleteProject={handleDeleteProject}
-                history={history}
-                deleteProject
-              />
-            </ButtonGroup>
+            <Link to={`/edit-project/${currentProject.name}`} className="btn btn-warning">Edit</Link>
+            <AlertBox
+              btnName="Finish"
+              color="success"
+              text="Are you sure you want to finish the project?"
+              history={history}
+              currentProject={currentProject}
+              handleFinishProject={handleFinishProject}
+            />
+            <AlertBox
+              btnName="Delete"
+              color="danger"
+              text="Are you sure you want to delete the project?"
+              currentProject={currentProject}
+              handleDeleteProject={handleDeleteProject}
+              history={history}
+              deleteProject
+            />
           </Col>
         </Row>
         <Row>

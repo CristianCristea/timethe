@@ -1,1 +1,10 @@
+// import variables - colors;
+@import '../../../scss/config'; 
 
+.MainNav {
+  background-color: $primary-accent-color;
+}
+
+.main-nav-link {
+  font-weight: 600;
+}

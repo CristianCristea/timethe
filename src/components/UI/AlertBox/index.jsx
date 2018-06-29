@@ -66,7 +66,7 @@ class AlertBox extends React.Component {
             >
               Yes
             </Button>{' '}
-            <Button color="secondary" onClick={this.toggle}>No</Button>
+            <Button className="btn-primary" onClick={this.toggle}>No</Button>
           </ModalFooter>
         </Modal>
       </div>
