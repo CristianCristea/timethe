@@ -6,17 +6,17 @@ import './projects.css';
 
 const Projects = ({ projects }) => (
   <section className="projects">
-    <Container>
-      <Row>
-        <Col>
-          <ul className="projects__list p-0">
-            {projects.map(project => (
-              <Project key={project.id} project={project} />
-            ))}
-          </ul>
-        </Col>
-      </Row>
-    </Container>
+    <ul className="projects__list p-0">
+      <Container>
+        <Row>
+          {projects.map(project => (
+            <Col xs="12" sm="6" md="4" ls="3" key={project.id}>
+              <Project project={project} />
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </ul>
   </section>
 );
 
