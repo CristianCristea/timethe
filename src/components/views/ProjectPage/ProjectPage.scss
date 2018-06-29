@@ -1,0 +1,18 @@
+.ProjectDetails {
+  border: 1px solid #ccc;
+  padding: 2rem;
+  margin-top: 5rem;
+  border-radius: 10px;
+}
+
+.ProjectSettings {
+  a, button {
+    width: 100px !important;
+    color: #fff;
+    margin-bottom: 1rem;
+
+    &:hover {
+      color: #fff;
+    }
+  }
+}
