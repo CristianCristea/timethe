@@ -90,7 +90,12 @@ class App extends Component {
 
   endSession = (data) => {
     // addSession
-    const { date, note, seconds, currentProject } = data;
+    const {
+      date,
+      note,
+      seconds,
+      currentProject,
+    } = data;
     const session = {
       date,
       note,
@@ -146,7 +151,8 @@ class App extends Component {
                 path="/projects/:name"
                 render={(props) => {
                   const project = this.filterProject('name', props.match.params.name, projects);
-                  const totalSessionsTime = this.getTotalSessionsTime(project.sessions)
+                  const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
+
                   return (
                     <ProjectPage
                       projects={projects}
