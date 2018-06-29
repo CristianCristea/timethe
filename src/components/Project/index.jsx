@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Row, Col, Card, CardBody, CardTitle } from 'reactstrap';
+import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import './project.css';
 
 const Project = ({ project }) => (
   <li className="project">
-    <Card>
-      <CardBody>
-        <Row>
-          <Col>
-            <Link to={`/projects/${project.name}`}>
-              <CardTitle>{project.name}</CardTitle>
-            </Link>
-          </Col>
-        </Row>
-      </CardBody>
-    </Card>
+    <Link to={`/projects/${project.name}`} className="project-link">
+      <Card style={{ height: 300 }}>
+        <CardBody>
+          <CardTitle tag="h4">{project.name}</CardTitle>
+          <CardText>{project.description}</CardText>
+        </CardBody>
+      </Card>
+    </Link>
   </li>
 );
 
@@ -26,4 +23,3 @@ Project.propTypes = {
   project: PropTypes.object.isRequired,
 };
 
-// TODO: implement settings - not delete

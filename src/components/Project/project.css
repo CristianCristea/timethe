@@ -1,8 +1,18 @@
 .project {
   margin-bottom: 1em; }
 
+.project-link:hover {
+  text-decoration: none; }
+
 .card {
   transition: all 0.4s; }
   .card:hover {
     cursor: pointer;
-    border-color: tomato; }
+    border-color: tomato;
+    text-decoration: none; }
+
+.card-body {
+  color: initial; }
+
+.card-title {
+  text-transform: capitalize; }
