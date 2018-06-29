@@ -1,6 +1,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   Container,
   Row,
@@ -16,20 +17,20 @@ export default class ProjectForm extends React.Component {
   state = {
     name: this.props.currentProject.name,
     description: this.props.currentProject.description,
-    sessions: [],
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, description, sessions } = this.state;
+    const { name, description } = this.state;
 
     // add new Project
     if (!this.props.edit) {
       const project = {
         name: name.trim(),
         description: description.trim(),
-        sessions,
+        sessions: [],
         id: uuid(),
+        startDate: moment().format('dddd, DD MM YYYY'),
       };
 
       this.props.handleAddProject(project);
@@ -47,7 +48,7 @@ export default class ProjectForm extends React.Component {
     }
 
     // redirect to dashboard after form submision
-    this.props.history.push('/');
+    this.props.history.push(`/projects/${this.state.name}`);
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
