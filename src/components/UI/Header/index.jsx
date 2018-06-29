@@ -7,7 +7,7 @@ import './header.css';
 export default function Header({ title, subtitle }) {
   return (
     <header>
-      <Jumbotron>
+      <Jumbotron className="m-0">
         <Container>
           <Row>
             <Col>
