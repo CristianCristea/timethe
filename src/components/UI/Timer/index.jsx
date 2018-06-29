@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
-// import PropTypes from 'prop-types';
-
+import { Button, Row, Col } from 'reactstrap';
 import './timer.css';
+import EndSessionModal from '../EndSessionModal';
 
 export default class Timer extends React.Component {
   state = {
@@ -21,11 +22,15 @@ export default class Timer extends React.Component {
   }
 
   tick = () => {
-    this.setState({ seconds: (moment().unix() - Number(this.state.start)) + this.state.pauseTime });
+    const { start, pauseTime } = this.state;
+    this.setState({ seconds: (moment().unix() - Number(start)) + pauseTime });
   }
 
   startTimer = () => {
-    this.setState({ start: moment().unix() });
+    this.setState({
+      start: moment().unix(),
+      paused: false,
+    });
     this.timer = setInterval(this.tick, 300);
   }
 
@@ -59,37 +64,69 @@ export default class Timer extends React.Component {
 
   formatClock = ({ seconds } = this.state) => {
     const s = seconds % 60;
-    const m = Math.floor((seconds / 60));
+    const m = Math.floor((seconds / 60) % 60);
     let h = Math.floor(m / 60);
 
     if (h >= 24) {
       h = 0;
     }
 
-    return `${this.formatTime(h)} : ${this.formatTime(m)} : ${this.formatTime(s)}`;
+    return `${this.formatTime(h)}:${this.formatTime(m)}:${this.formatTime(s)}`;
   }
 
   render() {
-    return (
-      <div className="Timer">
-        <div className="Time">{this.formatClock()}</div>
-        <button onClick={() => {
-          if (this.state.paused) {
-            this.startTimer();
-          } else {
-            this.pauseTimer();
-          }
-          }
-        }
-        >
-          {this.state.paused ? 'Start' : 'Pause'}
-        </button>
-        <button onClick={this.stopTimer}>Stop</button>
-      </div>
+    const { endSession, currentProject } = this.props;
+    const { paused, seconds } = this.state;
 
+    return (
+      <Row>
+        <Col>
+          <Row className="Timer m-0">
+            <Col>
+              <div className="Time">{this.formatClock()}</div>
+            </Col>
+            <Col className="text-right">
+              <Button
+                className="mb-3 ControlBtn"
+                color="success"
+                onClick={() => {
+                  if (paused) {
+                    this.startTimer();
+                  } else {
+                    this.pauseTimer();
+                  }
+                }
+                }
+              >
+                {paused ? 'Start' : 'Pause'}
+              </Button>
+              <EndSessionModal
+                endSession={endSession}
+                stopTimer={this.stopTimer}
+                seconds={seconds}
+                currentProject={currentProject}
+              />
+
+            </Col>
+          </Row>
+        </Col>
+      </Row>
     );
   }
 }
 
-Timer.propTypes = {};
+Timer.propTypes = {
+  endSession: PropTypes.func.isRequired,
+  currentProject: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    sessions: PropTypes.arrayOf(PropTypes.shape({
+      date: PropTypes.string,
+      note: PropTypes.string,
+      seconds: PropTypes.number,
+    })),
+    startDate: PropTypes.string.isRequired,
+  }).isRequired,
+};
 
