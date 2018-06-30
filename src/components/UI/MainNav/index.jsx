@@ -45,7 +45,7 @@ export default class MainNav extends React.Component {
                   </NavLink>
                 </NavItem>
                 <NavItem className="main-nav-link">
-                  <NavLink className="nav-link" activeClassName="active" to="/archived-projects">Archive</NavLink>
+                  <NavLink className="nav-link" activeClassName="active" to="/archive">Archive</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
