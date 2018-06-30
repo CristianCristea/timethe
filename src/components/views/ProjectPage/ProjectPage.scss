@@ -6,6 +6,7 @@
   padding: 2rem;
   margin-top: 5rem;
   border-radius: 10px;
+ 
 
   a, button {
     width: 100px !important;
@@ -16,4 +17,13 @@
       color: #fff;
     }
   }
+}
+
+.ProjectControlBtns {
+  text-align: center;
+  
+  @media screen and (min-width: 576px) {
+    text-align: right;
+  }
+
 }

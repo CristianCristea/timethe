@@ -44,3 +44,10 @@ $secondary-accent-color: $bottle-green;
   background-color: $pastel-green;
   border-color: $pastel-green;
 }
+
+// disable link
+.isDisabled {
+  pointer-events: none;
+  opacity: 0.5;
+  text-decoration: none;
+}

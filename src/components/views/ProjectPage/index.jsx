@@ -14,6 +14,7 @@ export default function ProjectPage({
   startSession,
   activeSession,
   endSession,
+  cancelSession,
   formatTime,
   totalSessionsTime,
   handleDeleteProject,
@@ -25,7 +26,7 @@ export default function ProjectPage({
       <MainNav />
       <Container>
         <Row className="ProjectDetails">
-          <Col md="10">
+          <Col md="10" className="mb-5">
             <Row className="project">
               <Col>
                 <h3 className="display-4">{currentProject.name}</h3>
@@ -40,9 +41,15 @@ export default function ProjectPage({
               </Col>
             </Row>
           </Col>
-          <Col className="text-right">
-            <Link to={`/edit-project/${currentProject.name}`} className="btn btn-warning">Edit</Link>
+          <Col className="ProjectControlBtns">
+            <Link
+              to={`/edit-project/${currentProject.name}`}
+              className={`btn btn-warning ${activeSession ? 'isDisabled' : ''}`}
+            >
+              Edit
+            </Link>
             <AlertBox
+              disabled={activeSession}
               btnName="Finish"
               color="success"
               text="Are you sure you want to finish the project?"
@@ -51,6 +58,7 @@ export default function ProjectPage({
               handleFinishProject={handleFinishProject}
             />
             <AlertBox
+              disabled={activeSession}
               btnName="Delete"
               color="danger"
               text="Are you sure you want to delete the project?"
@@ -85,7 +93,11 @@ export default function ProjectPage({
 
             {
               // display Timer only if one session is active
-              activeSession && <Timer endSession={endSession} currentProject={currentProject} />
+              activeSession && <Timer
+                endSession={endSession}
+                cancelSession={cancelSession}
+                currentProject={currentProject}
+              />
             }
           </Col>
         </Row>
@@ -103,13 +115,14 @@ export default function ProjectPage({
 ProjectPage.propTypes = {
   currentProject: PropTypes.object.isRequired,
   startSession: PropTypes.func.isRequired,
+  cancelSession: PropTypes.func.isRequired,
   activeSession: PropTypes.bool.isRequired,
   endSession: PropTypes.func.isRequired,
   formatTime: PropTypes.func.isRequired,
-  totalSessionsTime: PropTypes.number.isRequired,
+  totalSessionsTime: PropTypes.string.isRequired,
   handleDeleteProject: PropTypes.func.isRequired,
   handleFinishProject: PropTypes.func.isRequired,
-  history: PropTypes.obj,
+  history: PropTypes.object,
 };
 
 ProjectPage.defaultProps = {

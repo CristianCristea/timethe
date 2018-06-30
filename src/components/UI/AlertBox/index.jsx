@@ -48,10 +48,11 @@ class AlertBox extends React.Component {
       color,
       btnName,
       className,
+      disabled,
     } = this.props;
     return (
       <div>
-        <Button color={color} onClick={this.toggle}>{btnName}</Button>
+        <Button color={color} disabled={disabled} onClick={this.toggle}>{btnName}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={className}>
           <ModalHeader toggle={this.toggle}>Warning</ModalHeader>
           <ModalBody>
@@ -80,11 +81,11 @@ AlertBox.propTypes = {
   btnName: PropTypes.string,
   className: PropTypes.string,
   text: PropTypes.string,
-  history: PropTypes.object,
+  disabled: PropTypes.bool.isRequired,
+  color: PropTypes.string.isRequired,
   handleDeleteProject: PropTypes.func,
   handleFinishProject: PropTypes.func,
-  color: PropTypes.string.isRequired,
-  deleteProject: PropTypes.func.isRequired,
+  deleteProject: PropTypes.bool,
   currentProject: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -96,6 +97,7 @@ AlertBox.propTypes = {
     })),
     startDate: PropTypes.string.isRequired,
   }).isRequired,
+  history: PropTypes.object,
 };
 
 AlertBox.defaultProps = {
@@ -103,7 +105,8 @@ AlertBox.defaultProps = {
   btnName: '',
   className: '',
   history: {},
-  handleDeleteProject: {},
-  handleFinishProject: {},
+  handleFinishProject: () => false,
+  handleDeleteProject: () => false,
+  deleteProject: false,
 };
 

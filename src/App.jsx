@@ -109,6 +109,10 @@ class App extends Component {
     this.setState({ activeSession: false });
   }
 
+  cancelSession = () => {
+    this.setState({ activeSession: false });
+  }
+
   formatTime = (seconds) => {
     const m = Math.floor(seconds / 60) % 60;
     const h = Math.floor(seconds / 3600);
@@ -160,6 +164,7 @@ class App extends Component {
                       startSession={this.startSession}
                       activeSession={this.state.activeSession}
                       endSession={this.endSession}
+                      cancelSession={this.cancelSession}
                       currentProject={project}
                       formatTime={this.formatTime}
                       totalSessionsTime={this.formatTime(totalSessionsTime)}

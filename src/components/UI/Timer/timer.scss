@@ -7,8 +7,21 @@
 .Time {
   font-size: 3rem;
   font-weight: 600;
+  text-align: center;
+
+  @media screen and (min-width: 576px) {
+    text-align: left;
+  }
 }
 
 .ControlBtn {
   width: 100px;
+}
+
+.ControlBtns {
+  text-align: center;
+
+  @media screen and (min-width: 576px) {
+    text-align: right;
+  }
 }

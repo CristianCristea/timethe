@@ -22,6 +22,11 @@
   background-color: #7ae582;
   border-color: #7ae582; }
 
+.isDisabled {
+  pointer-events: none;
+  opacity: 0.5;
+  text-decoration: none; }
+
 .project {
   margin-bottom: 1em; }
 
