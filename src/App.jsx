@@ -50,8 +50,15 @@ class App extends Component {
   handleAddProject = project => (this.setState(prevState =>
     ({ projects: prevState.projects.concat(project) })));
 
-  handleArchiveProject = project => (this.setState(prevState =>
-    ({ archivedProjects: prevState.archivedProjects.concat(project) })));
+  handleArchiveProject = (project) => {
+    const projectToArchive = {
+      ...project,
+      archiveDate: moment().format('dddd, MMMM Do YYYY'),
+    };
+
+    this.setState(prevState =>
+      ({ archivedProjects: prevState.archivedProjects.concat(projectToArchive) }));
+  }
 
   handleEditProject = (project) => {
     const { projects } = this.state;
