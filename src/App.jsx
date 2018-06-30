@@ -4,7 +4,8 @@ import moment from 'moment';
 import Header from './components/UI/Header';
 import ProjectForm from './components/Project/Form';
 import HomePage from './components/views/HomePage';
-import ProjectPage from './components/views/ProjectPage';
+import ActiveProject from './components/views/ActiveProject';
+import ArchiveProject from './components/views/ArchiveProject';
 import NotFound from './components/404';
 import './App.css';
 
@@ -40,7 +41,21 @@ class App extends Component {
         startDate: moment().format('dddd, MMMM Do YYYY'),
       },
     ],
-    archivedProjects: [],
+    archivedProjects: [{
+      id: 'uniq_id',
+      name: 'test',
+      description: 'test description',
+      sessions: [
+        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project' }, { date: moment().format('dddd, MMMM Do YYYY'), seconds: 2133, note: 'A simple note on test project2' },
+        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4223, note: 'A simple note on test project3' },
+        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project4' },
+        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 1321, note: 'A simple note on test project5' },
+        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 7564, note: 'A simple note on test project6' },
+      ],
+      startDate: moment().format('dddd, MMMM Do YYYY'),
+      archiveDate: moment().format('dddd, MMMM Do YYYY'),
+    },
+    ],
   };
 
   getTotalSessionsTime = sessions => (
@@ -151,7 +166,8 @@ class App extends Component {
                 )}
               />
               <Route
-                path="/archived-projects"
+                path="/archive"
+                exact
                 render={() => (
                   <HomePage
                     projects={archivedProjects}
@@ -159,13 +175,28 @@ class App extends Component {
                 )}
               />
               <Route
+                path="/archive/:name"
+                render={(props) => {
+                  const project = this.filterProject('name', props.match.params.name.toLowerCase(), archivedProjects);
+                  const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
+                  return (
+                    <ArchiveProject
+                      project={project}
+                      totalSessionsTime={this.formatTime(totalSessionsTime)}
+                      formatTime={this.formatTime}
+                      {...props}
+                    />
+                  );
+                }}
+              />
+              <Route
                 path="/projects/:name"
                 render={(props) => {
-                  const project = this.filterProject('name', props.match.params.name, projects);
+                  const project = this.filterProject('name', props.match.params.name.toLowerCase(), projects);
                   const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
 
                   return (
-                    <ProjectPage
+                    <ActiveProject
                       projects={projects}
                       handleEditProject={this.handleEditProject}
                       startSession={this.startSession}
