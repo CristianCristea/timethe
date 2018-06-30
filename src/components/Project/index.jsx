@@ -4,9 +4,13 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import './project.css';
 
-const Project = ({ project }) => (
-  <li className="project">
-    <Link to={`/projects/${project.name}`} className="project-link">
+const Project = ({ project }) => {
+  const link = project.archiveDate
+    ? `/archive/${project.name.toLowerCase()}`
+    : `/projects/${project.name.toLowerCase()}`;
+
+  return (<li className="project">
+    <Link to={link} className="project-link">
       <Card style={{ height: 300 }}>
         <CardBody>
           <CardTitle tag="h4">{project.name}</CardTitle>
@@ -15,7 +19,8 @@ const Project = ({ project }) => (
       </Card>
     </Link>
   </li>
-);
+  );
+}
 
 export default Project;
 
