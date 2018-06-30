@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   Collapse,
   Navbar,
@@ -35,10 +35,17 @@ export default class MainNav extends React.Component {
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="pl-3 text-center">
                 <NavItem className="main-nav-link">
-                  <Link className="nav-link active" to="/">Projects</Link>
+                  <NavLink
+                    className="nav-link"
+                    activeClassName="active"
+                    to="/"
+                    exact
+                  >
+                    Projects
+                  </NavLink>
                 </NavItem>
                 <NavItem className="main-nav-link">
-                  <Link className="nav-link" to="/archived-projects">Archive</Link>
+                  <NavLink className="nav-link" activeClassName="active" to="/archived-projects">Archive</NavLink>
                 </NavItem>
               </Nav>
             </Collapse>
