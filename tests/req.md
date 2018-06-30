@@ -30,13 +30,13 @@
 - btn to delete project on project page
 - finish project
 - display archived projects
-
 - cancel session - dont save, just stop it
-- on archived project page - on click display single project info - modal, option to retrive project, to print 
 - display warning - cant leave the tab while session active
-- add alert - if you leave - you lose the session
-
+- active menu button
 - style
+
+- on archived project page - display single project info - print or generate PDF to download
+
 
 
 - data persistance - localStorage
