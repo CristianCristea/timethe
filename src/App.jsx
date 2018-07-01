@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import moment from 'moment';
+import * as jsPDF from 'jspdf';
 import Header from './components/UI/Header';
 import ProjectForm from './components/Project/Form';
 import HomePage from './components/views/HomePage';
@@ -12,58 +13,38 @@ import './App.css';
 class App extends Component {
   state = {
     activeSession: false,
-    projects: [
-      {
-        id: 'uniq_id',
-        name: 'test',
-        description: 'test description',
-        sessions: [
-          { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project' }, { date: moment().format('dddd, MMMM Do YYYY'), seconds: 2133, note: 'A simple note on test project2' },
-          { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4223, note: 'A simple note on test project3' },
-          { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project4' },
-          { date: moment().format('dddd, MMMM Do YYYY'), seconds: 1321, note: 'A simple note on test project5' },
-          { date: moment().format('dddd, MMMM Do YYYY'), seconds: 7564, note: 'A simple note on test project6' },
-        ],
-        startDate: moment().format('dddd, MMMM Do YYYY'),
-      },
-      {
-        id: 'uniq_id3',
-        name: 'test3',
-        description: 'test description2',
-        sessions: [],
-        startDate: moment().format('dddd, MMMM Do YYYY'),
-      },
-      {
-        id: 'uniq_id2',
-        name: 'test2',
-        description: 'test description2',
-        sessions: [],
-        startDate: moment().format('dddd, MMMM Do YYYY'),
-      },
-    ],
-    archivedProjects: [{
-      id: 'uniq_id',
-      name: 'test',
-      description: 'test description',
-      sessions: [
-        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project' }, { date: moment().format('dddd, MMMM Do YYYY'), seconds: 2133, note: 'A simple note on test project2' },
-        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4223, note: 'A simple note on test project3' },
-        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 4323, note: 'A simple note on test project4' },
-        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 1321, note: 'A simple note on test project5' },
-        { date: moment().format('dddd, MMMM Do YYYY'), seconds: 7564, note: 'A simple note on test project6' },
-      ],
-      startDate: moment().format('dddd, MMMM Do YYYY'),
-      archiveDate: moment().format('dddd, MMMM Do YYYY'),
-    },
-    ],
+    projects: [],
+    archivedProjects: [],
   };
+
+  componentDidMount() {
+    // get projects from localstorage
+    if (!localStorage.getItem('data')) {
+      this.updateStorage(this.state);
+    }
+
+    const newState = JSON.parse(localStorage.getItem('data'));
+    this.setState({
+      projects: newState.projects,
+      archivedProjects: newState.archivedProjects
+    });
+  }
 
   getTotalSessionsTime = sessions => (
     sessions.reduce((total, session) => (total + session.seconds), 0)
   );
 
-  handleAddProject = project => (this.setState(prevState =>
-    ({ projects: prevState.projects.concat(project) })));
+  handleAddProject = (project) => {
+    const { projects } = this.state;
+
+    this.setState({ projects: [...projects, project] },
+      () => (this.updateStorage(this.state)),
+    );
+  }
+
+  updateStorage = newState => (
+    localStorage.setItem('data', JSON.stringify(newState))
+  )
 
   handleArchiveProject = (project) => {
     const projectToArchive = {
@@ -71,25 +52,28 @@ class App extends Component {
       archiveDate: moment().format('dddd, MMMM Do YYYY'),
     };
 
-    this.setState(prevState =>
-      ({ archivedProjects: prevState.archivedProjects.concat(projectToArchive) }));
+    this.setState(
+      prevState => ({ archivedProjects: prevState.archivedProjects.concat(projectToArchive) }),
+      () => (this.updateStorage(this.state)),
+    );
   }
 
   handleEditProject = (project) => {
     const { projects } = this.state;
     const newProjects = projects.map(p => (p.id === project.id ? project : p));
 
-    this.setState({ projects: newProjects });
-  };
-
-  handleDeleteProjects = () => {
-    this.setState(() => ({ projects: [] }));
+    this.setState(
+      { projects: newProjects },
+      () => (this.updateStorage(this.state)),
+    );
   };
 
   handleDeleteProject = (projectToRemove) => {
-    this.setState(prevState => ({
-      projects: prevState.projects.filter(project => project !== projectToRemove),
-    }));
+    this.setState(
+      prevState => (
+        { projects: prevState.projects.filter(project => project !== projectToRemove) }),
+      () => (this.updateStorage(this.state)),
+    );
   };
 
   handleFinishProject = (project) => {
@@ -102,12 +86,6 @@ class App extends Component {
 
   startSession = () => {
     this.setState({ activeSession: true });
-  }
-
-  addSession = (projectId, session) => {
-    const updatedProjects = this.state.projects.map(p => (
-      p.id === projectId ? p.sessions.concat(session) : p));
-    this.setState({ projects: updatedProjects });
   }
 
   endSession = (data) => {
@@ -127,8 +105,9 @@ class App extends Component {
     currentProject.sessions = [...currentProject.sessions, session];
     const newProject = currentProject;
 
+    // replace old project with newProject
     this.handleEditProject(newProject);
-    this.setState({ activeSession: false });
+    this.cancelSession();
   }
 
   cancelSession = () => {
@@ -141,6 +120,17 @@ class App extends Component {
     const isPlural = unit => (unit !== 1 ? 's' : '');
 
     return `${h} hour${isPlural(h)}  ${m} minute${isPlural(m)}`;
+  }
+
+  handlePrintProject = () => {
+    window.print();
+  }
+
+  handleGeneratePDF = () => {
+    const doc = new jsPDF();
+
+    doc.text('project to be exported', 15, 15);
+    doc.save();
   }
 
 
@@ -184,6 +174,8 @@ class App extends Component {
                       project={project}
                       totalSessionsTime={this.formatTime(totalSessionsTime)}
                       formatTime={this.formatTime}
+                      handlePrintProject={this.handlePrintProject}
+                      handleGeneratePDF={this.handleGeneratePDF}
                       {...props}
                     />
                   );
