@@ -1,0 +1,20 @@
+.export-btns {
+  display: flex;
+  flex-direction: column;
+  width: 100px;
+}
+
+// print only project infos
+@media print {
+  header {
+    display: none;
+  }
+
+  .export-btns {
+    display: none;
+  }
+
+  .app {
+    margin: 3rem;
+  }
+}

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Container, Row, Col, Badge, Button } from 'reactstrap';
 import MainNav from '../../UI/MainNav';
 import Sessions from '../../Sessions';
@@ -9,6 +10,8 @@ export default function ArchiveProject({
   project,
   totalSessionsTime,
   formatTime,
+  handlePrintProject,
+  handleGeneratePDF,
 }) {
   const {
     name,
@@ -19,27 +22,23 @@ export default function ArchiveProject({
   } = project;
 
   return (
-    <div className="ArchiveProject">
+    <div className="ArchiveProject" id="archiveProject">
       <MainNav />
       <Container>
-        <Row >
-          <Col className="mb-5">
-            <Row className="archivedProject">
-              <Col>
-                <h3 className="display-3">{name}</h3>
-              </Col>
-              <Col>
-                <h1 className="mt-4">
-                  <Badge color="secondary" className="">{totalSessionsTime}</Badge>
-                </h1>
-                <Button className="btn btn-success btn-large">Export data</Button>
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <p className="lead">{description}</p>
-              </Col>
-            </Row>
+
+        <Row className="archivedProject mb-5">
+          <Col>
+            <h3 className="display-3">{name}</h3>
+            <p className="lead">{description}</p>
+          </Col>
+          <Col>
+            <h1 className="mt-4">
+              <Badge color="secondary" className="">{totalSessionsTime}</Badge>
+            </h1>
+            <div className="export-btns">
+              <Button className="btn btn-success btn-large mb-3" onClick={handlePrintProject}>Print</Button>
+              <Button className="btn btn-success btn-large" onClick={handleGeneratePDF}>Export PDF</Button>
+            </div>
           </Col>
         </Row>
 
@@ -59,3 +58,9 @@ export default function ArchiveProject({
   );
 }
 
+ArchiveProject.propTypes = {
+  project: PropTypes.object.isRequired,
+  totalSessionsTime: PropTypes.string.isRequired,
+  formatTime: PropTypes.func.isRequired,
+  handlePrintProject: PropTypes.func.isRequired,
+};
