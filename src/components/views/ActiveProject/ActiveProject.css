@@ -32,12 +32,17 @@
   padding: 2rem;
   margin-top: 5rem;
   border-radius: 10px; }
+  .ProjectDetails .lead {
+    text-align: justify; }
   .ProjectDetails a, .ProjectDetails button {
     width: 100px !important;
     color: #fff;
     margin-bottom: 1rem; }
     .ProjectDetails a:hover, .ProjectDetails button:hover {
       color: #fff; }
+
+.project-name {
+  text-transform: capitalize; }
 
 .ProjectControlBtns {
   text-align: center; }

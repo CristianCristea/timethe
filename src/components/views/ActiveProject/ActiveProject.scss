@@ -6,8 +6,11 @@
   padding: 2rem;
   margin-top: 5rem;
   border-radius: 10px;
- 
 
+  .lead {
+    text-align: justify;
+  }
+  
   a, button {
     width: 100px !important;
     color: #fff;
@@ -17,6 +20,10 @@
       color: #fff;
     }
   }
+}
+
+.project-name {
+  text-transform: capitalize;
 }
 
 .ProjectControlBtns {

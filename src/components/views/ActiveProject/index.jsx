@@ -21,6 +21,8 @@ export default function ActiveProject({
   handleFinishProject,
   history,
 }) {
+  const { name, description, sessions } = currentProject;
+
   return (
     <div className="ActiveProject">
       <MainNav />
@@ -29,21 +31,31 @@ export default function ActiveProject({
           <Col md="10" className="mb-5">
             <Row className="project">
               <Col>
-                <h3 className="display-4">{currentProject.name}</h3>
+                <h3 className="display-4 project-name">{name}</h3>
               </Col>
               <Col>
-                <h5 className="pt-3"><Badge color="secondary">{totalSessionsTime}</Badge></h5>
+                <h5 className="pt-3">
+                  <Badge
+                    color="secondary"
+                    style={{
+                      fontSize: '1.2rem',
+                      padding: '.7rem',
+                    }}
+                  >
+                    {totalSessionsTime}
+                  </Badge>
+                </h5>
               </Col>
             </Row>
             <Row>
               <Col>
-                <p className="lead">{currentProject.description}</p>
+                <p className="lead">{description}</p>
               </Col>
             </Row>
           </Col>
-          <Col className="ProjectControlBtns">
+          <Col className="ProjectControlBtns mt-3">
             <Link
-              to={`/edit-project/${currentProject.name}`}
+              to={`/edit-project/${name}`}
               className={`btn btn-warning ${activeSession ? 'isDisabled' : ''}`}
             >
               Edit
@@ -104,7 +116,7 @@ export default function ActiveProject({
         <Row>
           <Col>
             <h4>Sessions</h4>
-            <Sessions sessions={currentProject.sessions} formatTime={formatTime} />
+            <Sessions sessions={sessions} formatTime={formatTime} />
           </Col>
         </Row>
       </Container >
