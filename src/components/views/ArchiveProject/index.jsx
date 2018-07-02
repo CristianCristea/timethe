@@ -37,7 +37,7 @@ export default function ArchiveProject({
             </h1>
             <div className="export-btns">
               <Button className="btn btn-success btn-large mb-3" onClick={handlePrintProject}>Print</Button>
-              <Button className="btn btn-success btn-large" onClick={() => handleGeneratePDF(project)}>Export PDF</Button>
+              <Button className="btn btn-success btn-large" onClick={() => handleGeneratePDF(project, totalSessionsTime)}>Export PDF</Button>
             </div>
           </Col>
         </Row>

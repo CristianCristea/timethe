@@ -1,3 +1,6 @@
+.archivedProject .lead {
+  text-align: justify; }
+
 .export-btns {
   display: flex;
   flex-direction: column;

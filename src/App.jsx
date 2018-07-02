@@ -129,7 +129,7 @@ class App extends Component {
     window.print();
   }
 
-  handleGeneratePDF = (project) => {
+  handleGeneratePDF = (project, totalSessionsTime) => {
     const {
       name,
       description,
@@ -138,11 +138,22 @@ class App extends Component {
       archiveDate,
     } = project;
     const doc = new JsPDF('p', 'pt', 'a4');
-    const sessionTableColumns = Object.keys(sessions[0]);
-    const sessionTableRows = sessions.map(s => (Array.from(Object.values(s))));
+    const sessionTableColumns = ['#', 'Date', 'Note', 'Time'];
+    const sessionTableRows = sessions.map((s, i) => {
+      const formatSession = Object.values(s);
+      formatSession.splice(-1, 1, totalSessionsTime);
+
+      return [i + 1, ...formatSession];
+    });
+    const titleMarginLeft = 40;
+    const titleMarginTop = 30;
+    const descriptionMarginTop = titleMarginTop + 50;
 
     // PDF options
     doc.setFontSize(16);
+
+    const splitTitle = doc.splitTextToSize(name, 300);
+    const splitDescription = doc.splitTextToSize(description, 500);
 
     // generate PDF
     doc.autoTable(
@@ -152,16 +163,11 @@ class App extends Component {
         columnStyles: {
           id: { fillColor: 255 },
         },
-        margin: { top: 300 },
+        margin: { top: descriptionMarginTop + 200 },
         addPageContent() {
-          doc.text([
-            name,
-            '\n',
-            description,
-            '\n',
-            '\n',
-            `${startDate} - ${archiveDate}`,
-          ], 40, 30);
+          doc.text(splitTitle, titleMarginLeft, titleMarginTop);
+          doc.text(splitDescription, titleMarginLeft, descriptionMarginTop);
+          doc.text(`${startDate} - ${archiveDate}`, titleMarginLeft, descriptionMarginTop + 150);
         },
       },
     );
