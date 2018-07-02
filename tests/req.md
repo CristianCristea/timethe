@@ -32,10 +32,10 @@
 - active menu button
 - style
 - on archived project page - display single project info - print
-- data persistance - localStorage#
-
-
+- data persistance - localStorage
 - generate PDF to download
+
+
 - add redux
 - add search - project
 - add auth
