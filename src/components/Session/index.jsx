@@ -8,9 +8,9 @@ export default function Session({ session, formatTime, index }) {
   return (
     <tr className="Session">
       <th scope="row">{index}</th>
-      <td>{date}</td>
-      <td>{note}</td>
-      <td>{formatTime(seconds)}</td>
+      <td className="session-date">{date}</td>
+      <td className="session-note">{note}</td>
+      <td className="session-time">{formatTime(seconds)}</td>
     </tr>
   );
 }

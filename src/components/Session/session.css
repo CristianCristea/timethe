@@ -29,3 +29,9 @@
 
 .Session {
   font-weight: 400; }
+
+.session-note {
+  text-align: justify; }
+
+.session-time {
+  min-width: 160px; }
