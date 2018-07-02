@@ -6,21 +6,23 @@ import Session from '../Session';
 
 export default function Sessions({ sessions, formatTime }) {
   return (
-    <Table striped>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date</th>
-          <th>Note</th>
-          <th>Time</th>
-        </tr>
-      </thead>
-      <tbody>
-        {sessions.map((s, i) => (
-          <Session key={uuid()} session={s} formatTime={formatTime} index={i + 1} />
-        ))}
-      </tbody>
-    </Table>
+    <div className="table-responsive">
+      <Table striped>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Note</th>
+            <th>Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          {sessions.map((s, i) => (
+            <Session key={uuid()} session={s} formatTime={formatTime} index={i + 1} />
+          ))}
+        </tbody>
+      </Table>
+    </div>
   );
 }
 
