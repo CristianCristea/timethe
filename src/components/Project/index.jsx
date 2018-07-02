@@ -4,25 +4,24 @@ import { Link } from 'react-router-dom';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import './project.css';
 
-const Project = ({ project }) => {
+export default function Project({ project }) {
   const link = project.archiveDate
     ? `/archive/${project.name.toLowerCase()}`
     : `/projects/${project.name.toLowerCase()}`;
 
-  return (<li className="project">
-    <Link to={link} className="project-link">
-      <Card style={{ height: 300 }}>
-        <CardBody>
-          <CardTitle tag="h4">{project.name}</CardTitle>
-          <CardText>{project.description}</CardText>
-        </CardBody>
-      </Card>
-    </Link>
-  </li>
+  return (
+    <li className="project">
+      <Link to={link} className="project-link">
+        <Card className="project-card">
+          <CardBody className="project-card-body">
+            <CardTitle tag="h4" className="project-card-title">{project.name}</CardTitle>
+            <CardText>{project.description}</CardText>
+          </CardBody>
+        </Card>
+      </Link>
+    </li>
   );
 }
-
-export default Project;
 
 Project.propTypes = {
   project: PropTypes.object.isRequired,

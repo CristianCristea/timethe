@@ -11,21 +11,24 @@
   }
 }
 
-.card {
+.project-card {
   border-width: 2px;
   border-radius: 10px;
   transition: all 0.4s;
+  height: 300px;
+  overflow: hidden;
+
   &:hover {
     cursor: pointer;
     border-color: $primary-accent-color;
     border-width: 2px;
-
   }
 }
 
-.card-body {
+.project-card-body {
   color: initial;
 }
-.card-title {
+
+.project-card-title {
   text-transform: capitalize;
 }

@@ -33,17 +33,19 @@
 .project-link:hover {
   text-decoration: none; }
 
-.card {
+.project-card {
   border-width: 2px;
   border-radius: 10px;
-  transition: all 0.4s; }
-  .card:hover {
+  transition: all 0.4s;
+  height: 300px;
+  overflow: hidden; }
+  .project-card:hover {
     cursor: pointer;
     border-color: #0A3A56;
     border-width: 2px; }
 
-.card-body {
+.project-card-body {
   color: initial; }
 
-.card-title {
+.project-card-title {
   text-transform: capitalize; }
