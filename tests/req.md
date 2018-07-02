@@ -1,9 +1,4 @@
-# TODO
-
-- implement project startDate - moment.js
-- implement project sessions
-
-## Data Structure
+# Data Structure
 
 ```js
 {
@@ -11,8 +6,8 @@
     {
       name: string,
       description: string,
-      startDate: number_timestamp,
-      archiveDate: number_timestamp,
+      startDate: string_date,
+      archiveDate: string_date,
       sessions: [
         {
           date: number_timestamp,
@@ -25,6 +20,8 @@
 }
 ```
 
+## TODO
+
 - move format time up in the app and pass it down through props
 - display total time - all sessions on project page
 - btn to delete project on project page
@@ -34,12 +31,11 @@
 - display warning - cant leave the tab while session active
 - active menu button
 - style
+- on archived project page - display single project info - print
+- data persistance - localStorage#
 
-- on archived project page - display single project info - print or generate PDF to download
 
-
-
-- data persistance - localStorage
+- generate PDF to download
 - add redux
 - add search - project
 - add auth
