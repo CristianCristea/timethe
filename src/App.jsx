@@ -203,7 +203,7 @@ class App extends Component {
               <Route
                 path="/archive/:name"
                 render={(props) => {
-                  const project = this.filterProject('name', props.match.params.name.toLowerCase(), archivedProjects);
+                  const project = this.filterProject('name', props.match.params.name, archivedProjects);
                   const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
                   return (
                     <ArchiveProject
@@ -220,7 +220,7 @@ class App extends Component {
               <Route
                 path="/projects/:name"
                 render={(props) => {
-                  const project = this.filterProject('name', props.match.params.name.toLowerCase(), projects);
+                  const project = this.filterProject('name', props.match.params.name, projects);
                   const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
 
                   return (

@@ -32,7 +32,7 @@ export default class ProjectForm extends React.Component {
     // add new Project
     if (!edit) {
       const project = {
-        name: name.trim(),
+        name: name.toLowerCase().trim(),
         description: description.trim(),
         sessions: [],
         id: uuid(),
@@ -46,7 +46,7 @@ export default class ProjectForm extends React.Component {
     if (edit) {
       const project = {
         ...currentProject,
-        name,
+        name: name.toLowerCase(),
         description,
       };
 
@@ -54,7 +54,7 @@ export default class ProjectForm extends React.Component {
     }
 
     // redirect to dashboard after form submision
-    this.props.history.push(`/projects/${this.state.name}`);
+    this.props.history.push(`/projects/${this.state.name.toLowerCase()}`);
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
