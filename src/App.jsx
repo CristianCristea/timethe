@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import moment from 'moment';
-import * as jsPDF from 'jspdf';
+import * as JsPDF from 'jspdf';
+import { autoTable } from 'jspdf-autotable';
 import Header from './components/UI/Header';
 import ProjectForm from './components/Project/Form';
 import HomePage from './components/views/HomePage';
@@ -26,7 +27,7 @@ class App extends Component {
     const newState = JSON.parse(localStorage.getItem('data'));
     this.setState({
       projects: newState.projects,
-      archivedProjects: newState.archivedProjects
+      archivedProjects: newState.archivedProjects,
     });
   }
 
@@ -102,11 +103,13 @@ class App extends Component {
       seconds,
     };
 
+    // add new session
     currentProject.sessions = [...currentProject.sessions, session];
     const newProject = currentProject;
 
     // replace old project with newProject
     this.handleEditProject(newProject);
+    // close session
     this.cancelSession();
   }
 
@@ -126,11 +129,44 @@ class App extends Component {
     window.print();
   }
 
-  handleGeneratePDF = () => {
-    const doc = new jsPDF();
+  handleGeneratePDF = (project) => {
+    const {
+      name,
+      description,
+      sessions,
+      startDate,
+      archiveDate,
+    } = project;
+    const doc = new JsPDF('p', 'pt', 'a4');
+    const sessionTableColumns = Object.keys(sessions[0]);
+    const sessionTableRows = sessions.map(s => (Array.from(Object.values(s))));
 
-    doc.text('project to be exported', 15, 15);
-    doc.save();
+    // PDF options
+    doc.setFontSize(16);
+
+    // generate PDF
+    doc.autoTable(
+      sessionTableColumns,
+      sessionTableRows,
+      {
+        columnStyles: {
+          id: { fillColor: 255 },
+        },
+        margin: { top: 300 },
+        addPageContent() {
+          doc.text([
+            name,
+            '\n',
+            description,
+            '\n',
+            '\n',
+            `${startDate} - ${archiveDate}`,
+          ], 40, 30);
+        },
+      },
+    );
+
+    doc.save('table.pdf');
   }
 
 

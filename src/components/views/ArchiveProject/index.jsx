@@ -22,9 +22,9 @@ export default function ArchiveProject({
   } = project;
 
   return (
-    <div className="ArchiveProject" id="archiveProject">
+    <div className="ArchiveProject">
       <MainNav />
-      <Container>
+      <Container id="projectPDF">
 
         <Row className="archivedProject mb-5">
           <Col>
@@ -37,7 +37,7 @@ export default function ArchiveProject({
             </h1>
             <div className="export-btns">
               <Button className="btn btn-success btn-large mb-3" onClick={handlePrintProject}>Print</Button>
-              <Button className="btn btn-success btn-large" onClick={handleGeneratePDF}>Export PDF</Button>
+              <Button className="btn btn-success btn-large" onClick={() => handleGeneratePDF(project)}>Export PDF</Button>
             </div>
           </Col>
         </Row>
@@ -63,4 +63,5 @@ ArchiveProject.propTypes = {
   totalSessionsTime: PropTypes.string.isRequired,
   formatTime: PropTypes.func.isRequired,
   handlePrintProject: PropTypes.func.isRequired,
+  handleGeneratePDF: PropTypes.func.isRequired,
 };
