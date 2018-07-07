@@ -129,6 +129,8 @@ class App extends Component {
     window.print();
   }
 
+  capitalizeString = s => (s[0].toUpperCase() + s.substring(1));
+
   handleGeneratePDF = (project, totalSessionsTime) => {
     const {
       name,
@@ -152,7 +154,8 @@ class App extends Component {
     // PDF options
     doc.setFontSize(16);
 
-    const splitTitle = doc.splitTextToSize(name, 300);
+    // set max text length
+    const splitTitle = doc.splitTextToSize(this.capitalizeString(name), 300);
     const splitDescription = doc.splitTextToSize(description, 500);
 
     // generate PDF
@@ -172,7 +175,7 @@ class App extends Component {
       },
     );
 
-    doc.save('table.pdf');
+    doc.save('document.pdf');
   }
 
 
