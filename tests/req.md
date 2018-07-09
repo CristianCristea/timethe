@@ -37,6 +37,21 @@
 
 
 - add redux
-- add search - project
-- add auth
+  - added projects action creators, reducer, createStore
+  TODO:
+  - dispatch action creators on user interaction
+  - connect components to store
+
+
+
+
+
+  - rethink how a project is edited based on the action
+  - rethink about toggle project - archived boolean
+
+
+
+
+- add filters: text search, date 
 - connect to firebase
+- add auth
