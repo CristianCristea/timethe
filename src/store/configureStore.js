@@ -5,9 +5,13 @@ import projectsReducer from '../reducers/projects';
 const initialState = { projects: [] };
 
 export default () => {
-  const store = createStore(combineReducers({
-    projects: projectsReducer,
-  }), initialState);
+  const store = createStore(
+    combineReducers({
+      projects: projectsReducer,
+    }),
+    initialState,
+    // redux dev tools
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
   return store;
 };
