@@ -3,16 +3,18 @@ import moment from 'moment';
 
 // ADD_PROJECT
 // EDIT_PROJECT
-// REMOVE_PROJECT
-// TOGGLE_PROJECT
+// DELETE_PROJECT
+// TOGGLE_PROJECT -finished / not finised
 
 export const addProject = ({ name, description } = {}) => {
   const project = {
     id: uuid(),
-    name: name.toLowerCase(),
-    description: description.toLowerCase(),
+    name: name.toLowerCase().trim(),
+    description: description.toLowerCase().trim(),
     sessions: [],
-    startDate: moment().format('dddd, DD MM YYYY'),
+    startDate: moment().unix(),
+    archived: false,
+    archivedDates: [],
   };
 
   return {
@@ -27,7 +29,12 @@ export const editProject = (id, updates) => ({
   updates,
 });
 
-export const removeProject = ({ id } = {}) => ({
-  type: 'REMOVE_PROJECT',
+export const deleteProject = id => ({
+  type: 'DELETE_PROJECT',
+  id,
+});
+
+export const toggleProject = id => ({
+  type: 'TOGGLE_PROJECT',
   id,
 });
