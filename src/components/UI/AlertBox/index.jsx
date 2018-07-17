@@ -7,6 +7,8 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
+import { connect } from 'react-redux';
+import { deleteProject, toggleProject } from '../../../actions/projects';
 
 class AlertBox extends React.Component {
   constructor(props) {
@@ -26,16 +28,14 @@ class AlertBox extends React.Component {
 
   handleClick = () => {
     const {
-      deleteProject,
-      currentProject,
-      handleDeleteProject,
-      handleFinishProject,
+      deleteP,
+      projectId,
     } = this.props;
 
-    if (deleteProject) {
-      handleDeleteProject(currentProject);
+    if (deleteP) {
+      this.props.deleteProject(projectId);
     } else {
-      handleFinishProject(currentProject);
+      this.props.toggleProject(projectId);
     }
 
     this.toggle();
@@ -75,7 +75,16 @@ class AlertBox extends React.Component {
   }
 }
 
-export default AlertBox;
+const mapDispatchToProps = {
+  deleteProject,
+  toggleProject,
+};
+
+const mapStateToProps = (state, props) => ({
+  history: props.history,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AlertBox);
 
 AlertBox.propTypes = {
   btnName: PropTypes.string,
@@ -83,20 +92,8 @@ AlertBox.propTypes = {
   text: PropTypes.string,
   disabled: PropTypes.bool.isRequired,
   color: PropTypes.string.isRequired,
-  handleDeleteProject: PropTypes.func,
-  handleFinishProject: PropTypes.func,
-  deleteProject: PropTypes.bool,
-  currentProject: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    sessions: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string,
-      note: PropTypes.string,
-      seconds: PropTypes.number,
-    })),
-    startDate: PropTypes.string.isRequired,
-  }).isRequired,
+  deleteP: PropTypes.bool,
+  projectId: PropTypes.string.isRequired,
   history: PropTypes.object,
 };
 
@@ -105,8 +102,6 @@ AlertBox.defaultProps = {
   btnName: '',
   className: '',
   history: {},
-  handleFinishProject: () => false,
-  handleDeleteProject: () => false,
-  deleteProject: false,
+  deleteP: false,
 };
 
