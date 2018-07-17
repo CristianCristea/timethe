@@ -12,6 +12,11 @@ import {
   Input,
 } from 'reactstrap';
 import moment from 'moment';
+import { connect } from 'react-redux';
+import { toggleIsSessionActive } from '../../../actions/helpers';
+import { editProject } from '../../../actions/projects';
+import { selectProject } from '../../../selectors/projects';
+
 
 class EndSessionModal extends React.Component {
   constructor(props) {
@@ -37,17 +42,24 @@ class EndSessionModal extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const { note } = this.state;
-    const { seconds, currentProject, endSession } = this.props;
+    const {
+      seconds,
+      currentProject,
+      editProject,
+      toggleIsSessionActive,
+      isSessionActive,
+    } = this.props;
 
-    const data = {
+    const session = {
       date: moment().format('dddd, MMMM Do YYYY'),
       note,
       seconds,
-      currentProject,
     };
 
     this.toggle();
-    endSession(data);
+    // add action addSesion to projects action creator and to reducer, import it
+    editProject(currentProject.id, Object.assign(currentProject, { sessions: currentProject.sessions.concat(session) }));
+    toggleIsSessionActive(isSessionActive);
   }
 
   render() {
@@ -88,12 +100,27 @@ class EndSessionModal extends React.Component {
   }
 }
 
-export default EndSessionModal;
+const mapStateToProps = (state, ownProps) => {
+  const { projects } = state;
+  const { projectName } = ownProps;
+  return {
+    currentProject: selectProject(projects, projectName),
+    isSessionActive: state.helpers.isSessionActive,
+    seconds: ownProps.seconds,
+  };
+};
+
+const mapDispatchToProps = {
+  toggleIsSessionActive,
+  editProject,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EndSessionModal);
 
 EndSessionModal.propTypes = {
-  className: PropTypes.string,
+  // className: PropTypes.string,
   seconds: PropTypes.number.isRequired,
-  endSession: PropTypes.func.isRequired,
+  // endSession: PropTypes.func.isRequired,
   currentProject: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -103,10 +130,10 @@ EndSessionModal.propTypes = {
       note: PropTypes.string,
       seconds: PropTypes.number,
     })),
-    startDate: PropTypes.string.isRequired,
+    startDate: PropTypes.number.isRequired,
   }).isRequired,
 };
 
-EndSessionModal.defaultProps = {
-  className: '',
-};
+// EndSessionModal.defaultProps = {
+//   className: '',
+// };
