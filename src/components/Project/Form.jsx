@@ -1,7 +1,5 @@
 import React from 'react';
-import uuid from 'uuid';
 import PropTypes from 'prop-types';
-import moment from 'moment';
 import {
   Container,
   Row,
@@ -11,9 +9,11 @@ import {
   Label,
   Input,
 } from 'reactstrap';
+import { connect } from 'react-redux';
+import { addProject, editProject } from '../../actions/projects';
 import './form.css';
 
-export default class ProjectForm extends React.Component {
+class ProjectForm extends React.Component {
   state = {
     name: this.props.currentProject.name,
     description: this.props.currentProject.description,
@@ -23,38 +23,29 @@ export default class ProjectForm extends React.Component {
     e.preventDefault();
     const { name, description } = this.state;
     const {
+      addProject,
+      editProject,
       edit,
-      handleAddProject,
-      currentProject,
-      handleEditProject,
+      history,
     } = this.props;
 
     // add new Project
     if (!edit) {
-      const project = {
-        name: name.toLowerCase().trim(),
-        description: description.trim(),
-        sessions: [],
-        id: uuid(),
-        startDate: moment().format('dddd, DD MM YYYY'),
-      };
-
-      handleAddProject(project);
+      addProject({ name, description });
     }
 
     // edit Project
     if (edit) {
       const project = {
-        ...currentProject,
         name: name.toLowerCase(),
         description,
       };
 
-      handleEditProject(project);
+      editProject(this.props.match.params.id, project);
     }
 
     // redirect to dashboard after form submision
-    this.props.history.push(`/projects/${this.state.name.toLowerCase()}`);
+    history.push(`/projects/${this.state.name.toLowerCase()}`);
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
@@ -116,11 +107,26 @@ export default class ProjectForm extends React.Component {
   }
 }
 
+const mapStateToProps = (state, ownProps) => {
+  if (ownProps.edit) {
+    return {
+      currentProject: state.projects.find(p => p.id === ownProps.match.params.id),
+    };
+  }
+
+  return {};
+};
+
+const mapDispatchToProps = {
+  addProject,
+  editProject,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
+
 ProjectForm.propTypes = {
   edit: PropTypes.bool,
   currentProject: PropTypes.object,
-  handleAddProject: PropTypes.func,
-  handleEditProject: PropTypes.func,
   history: PropTypes.object.isRequired,
 };
 
@@ -130,6 +136,4 @@ ProjectForm.defaultProps = {
     name: '',
     description: '',
   },
-  handleAddProject: null,
-  handleEditProject: null,
 };
