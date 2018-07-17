@@ -11,7 +11,7 @@ export default function Project({ project }) {
 
   return (
     <li className="project">
-      <Link to={link} className="project-link">
+      <Link to={link} className="project-link" >
         <Card className="project-card">
           <CardBody className="project-card-body">
             <CardTitle tag="h4" className="project-card-title">{project.name}</CardTitle>
