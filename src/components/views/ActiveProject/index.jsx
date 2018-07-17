@@ -2,26 +2,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Container, Row, Col, Badge } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
 import Timer from '../../UI/Timer';
 import MainNav from '../../UI/MainNav';
 import AlertBox from '../../UI/AlertBox';
 import AlertBar from '../../UI/AlertBar';
 import Sessions from '../../Sessions';
+
+import { toggleIsSessionActive } from '../../../actions/helpers';
+import { selectProject } from '../../../selectors/projects';
 import './ActiveProject.css';
 
-export default function ActiveProject({
-  currentProject,
-  startSession,
-  activeSession,
-  endSession,
-  cancelSession,
-  formatTime,
-  totalSessionsTime,
-  handleDeleteProject,
-  handleFinishProject,
+function ActiveProject({
+  project,
   history,
+  isSessionActive,
+  toggleIsSessionActive,
+  match,
 }) {
-  const { name, description, sessions } = currentProject;
+  const {
+    name,
+    description,
+    id,
+    sessions,
+  } = project;
 
   return (
     <div className="ActiveProject">
@@ -42,7 +47,7 @@ export default function ActiveProject({
                       padding: '.7rem',
                     }}
                   >
-                    {totalSessionsTime}
+                    {'totalSessionsTime'}
                   </Badge>
                 </h5>
               </Col>
@@ -55,41 +60,40 @@ export default function ActiveProject({
           </Col>
           <Col className="ProjectControlBtns mt-3">
             <Link
-              to={`/edit-project/${name}`}
-              className={`btn btn-warning ${activeSession ? 'isDisabled' : ''}`}
+              to={`/edit-project/${id}`}
+              className={`btn btn-warning ${isSessionActive ? 'isDisabled' : ''}`}
             >
               Edit
             </Link>
             <AlertBox
-              disabled={activeSession}
+              disabled={isSessionActive}
               btnName="Finish"
               color="success"
               text="Are you sure you want to finish the project?"
+              projectId={project.id}
               history={history}
-              currentProject={currentProject}
-              handleFinishProject={handleFinishProject}
             />
             <AlertBox
-              disabled={activeSession}
+              disabled={isSessionActive}
               btnName="Delete"
               color="danger"
               text="Are you sure you want to delete the project?"
-              currentProject={currentProject}
-              handleDeleteProject={handleDeleteProject}
+              projectId={project.id}
               history={history}
-              deleteProject
+              deleteP
             />
           </Col>
         </Row>
+
         <Row>
           <Col className="mt-4 mb-4 p-0">
-            {!activeSession &&
+            {!isSessionActive &&
               <Button
                 className="mb-5 mt-5 btn-lg"
                 color="primary"
                 onClick={() => {
-                  if (!activeSession) {
-                    startSession();
+                  if (!isSessionActive) {
+                    toggleIsSessionActive(isSessionActive);
                   }
                 }}
               >
@@ -99,44 +103,53 @@ export default function ActiveProject({
 
             {
               // display AlertBar only if one session is active
-              activeSession &&
+              isSessionActive &&
               <AlertBar color="info" text="The session will be canceled if you navigate away from the page" />
             }
 
             {
               // display Timer only if one session is active
-              activeSession && <Timer
-                endSession={endSession}
-                cancelSession={cancelSession}
-                currentProject={currentProject}
-              />
+              // start timer on component mount
+              isSessionActive && <Timer projectName={match.params.name} />
             }
           </Col>
         </Row>
         <Row>
           <Col>
             <h4>Sessions</h4>
-            <Sessions sessions={sessions} formatTime={formatTime} />
+
           </Col>
         </Row>
-      </Container >
+      </Container>
     </div>
   );
 }
 
+const mapStateToProps = (state, ownProps) => {
+  const { projects } = state;
+  const projectName = ownProps.match.params.name;
+
+  return {
+    project: selectProject(projects, projectName),
+    isSessionActive: state.helpers.isSessionActive,
+  };
+};
+
+const mapDispatchToProps = {
+  toggleIsSessionActive,
+};
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ActiveProject);
+
 ActiveProject.propTypes = {
-  currentProject: PropTypes.object.isRequired,
-  startSession: PropTypes.func.isRequired,
-  cancelSession: PropTypes.func.isRequired,
-  activeSession: PropTypes.bool.isRequired,
-  endSession: PropTypes.func.isRequired,
-  formatTime: PropTypes.func.isRequired,
-  totalSessionsTime: PropTypes.string.isRequired,
-  handleDeleteProject: PropTypes.func.isRequired,
-  handleFinishProject: PropTypes.func.isRequired,
+  project: PropTypes.object.isRequired,
   history: PropTypes.object,
+  isSessionActive: PropTypes.bool,
+  toggleIsSessionActive: PropTypes.func.isRequired,
 };
 
 ActiveProject.defaultProps = {
   history: {},
+  isSessionActive: false,
 };
