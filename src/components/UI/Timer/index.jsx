@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
 import './timer.css';
+import { toggleIsSessionActive } from '../../../actions/helpers';
 import EndSessionModal from '../EndSessionModal';
 
-export default class Timer extends React.Component {
+class Timer extends React.Component {
   state = {
     start: moment().unix(),
     seconds: 0,
@@ -76,9 +78,9 @@ export default class Timer extends React.Component {
 
   render() {
     const {
-      endSession,
-      currentProject,
-      cancelSession,
+      isSessionActive,
+      toggleIsSessionActive,
+      projectName,
     } = this.props;
     const { paused, seconds } = this.state;
 
@@ -106,14 +108,20 @@ export default class Timer extends React.Component {
                   {paused ? 'Continue' : 'Pause'}
                 </Button>
               </div>
-              <Button color="danger" className="ControlBtn mb-3" onClick={cancelSession}>Cancel</Button>
-              <EndSessionModal
-                endSession={endSession}
-                stopTimer={this.stopTimer}
-                seconds={seconds}
-                currentProject={currentProject}
-              />
+              <Button
+                color="danger"
+                className="ControlBtn mb-3"
+                onClick={() => {
+                  toggleIsSessionActive(isSessionActive);
+                }}
+              >
+                Cancel
+              </Button>
 
+              <EndSessionModal
+                seconds={seconds}
+                projectName={projectName}
+              />
             </Col>
           </Row>
         </Col>
@@ -122,19 +130,17 @@ export default class Timer extends React.Component {
   }
 }
 
-Timer.propTypes = {
-  endSession: PropTypes.func.isRequired,
-  cancelSession: PropTypes.func.isRequired,
-  currentProject: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    sessions: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string,
-      note: PropTypes.string,
-      seconds: PropTypes.number,
-    })),
-    startDate: PropTypes.string.isRequired,
-  }).isRequired,
+const mapStateToProps = state => ({
+  isSessionActive: state.helpers.isSessionActive,
+});
+
+const mapDispatchToProps = {
+  toggleIsSessionActive,
 };
 
+export default connect(mapStateToProps, mapDispatchToProps)(Timer);
+
+Timer.propTypes = {
+  isSessionActive: PropTypes.bool.isRequired,
+  toggleIsSessionActive: PropTypes.func.isRequired,
+};
