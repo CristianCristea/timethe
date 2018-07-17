@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Container, Row, Col } from 'reactstrap';
 import Project from '../Project/index';
 import './projects.css';
 
-export default function Projects({ projects }) {
+function Projects({ projects }) {
   return (
     <section className="projects">
       <ul className="projects__list p-0">
@@ -21,6 +22,14 @@ export default function Projects({ projects }) {
     </section>
   );
 }
+
+const mapStateToProject = (state, ownProps) => ({
+  // return archived projects based on the url
+  projects: state.projects.filter(project =>
+    ((RegExp('archive').test(ownProps.archive)) ? project.archived : !project.archived)),
+});
+
+export default connect(mapStateToProject)(Projects);
 
 Projects.propTypes = {
   projects: PropTypes.arrayOf(PropTypes.object).isRequired,
