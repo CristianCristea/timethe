@@ -38,20 +38,28 @@
 
 - add redux
   - added projects action creators, reducer, createStore
-  TODO:
+DONE:
   - dispatch action creators on user interaction
   - connect components to store
-
-
-
-
-
   - rethink how a project is edited based on the action
-  - rethink about toggle project - archived boolean
+  - connect homepage - display projects based on active or archive
+  - edit project
 
 
+  - sessions:
+  - timer component state
+    - connect timer to state
+    - toggle-isSessonActive on cancel
+    - cancel session - toggle isSessionActive: boolean
+  - add session to project sessions - see EndSessionModal component
+  - create selector for currentProject
 
+TODO:
+  - display sessions
+  - display total project time
+  - archive single project - update page view
 
-- add filters: text search, date 
-- connect to firebase
-- add auth
+  - localStorage - new action or new reducer?
+  - add filters: text search, date
+  - connect to firebase
+  - add auth
