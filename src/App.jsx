@@ -3,6 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import moment from 'moment';
 import * as JsPDF from 'jspdf';
 import { autoTable } from 'jspdf-autotable';
+import { connect } from 'react-redux';
 import Header from './components/UI/Header';
 import ProjectForm from './components/Project/Form';
 import HomePage from './components/views/HomePage';
@@ -35,55 +36,9 @@ class App extends Component {
     sessions.reduce((total, session) => (total + session.seconds), 0)
   );
 
-  handleAddProject = (project) => {
-    const { projects } = this.state;
-
-    this.setState({ projects: [...projects, project] },
-      () => (this.updateStorage(this.state)),
-    );
-  }
-
   updateStorage = newState => (
     localStorage.setItem('data', JSON.stringify(newState))
   )
-
-  handleArchiveProject = (project) => {
-    const projectToArchive = {
-      ...project,
-      archiveDate: moment().format('dddd, MMMM Do YYYY'),
-    };
-
-    this.setState(
-      prevState => ({ archivedProjects: prevState.archivedProjects.concat(projectToArchive) }),
-      () => (this.updateStorage(this.state)),
-    );
-  }
-
-  handleEditProject = (project) => {
-    const { projects } = this.state;
-    const newProjects = projects.map(p => (p.id === project.id ? project : p));
-
-    this.setState(
-      { projects: newProjects },
-      () => (this.updateStorage(this.state)),
-    );
-  };
-
-  handleDeleteProject = (projectToRemove) => {
-    this.setState(
-      prevState => (
-        { projects: prevState.projects.filter(project => project !== projectToRemove) }),
-      () => (this.updateStorage(this.state)),
-    );
-  };
-
-  handleFinishProject = (project) => {
-    this.handleArchiveProject(project);
-    this.handleDeleteProject(project);
-  }
-
-  filterProject = (propKey, propValue, projects) =>
-    (projects.filter(project => propValue === project[propKey])[0]);
 
   startSession = () => {
     this.setState({ activeSession: true });
@@ -178,9 +133,8 @@ class App extends Component {
     doc.save('document.pdf');
   }
 
-
   render() {
-    const { projects, archivedProjects } = this.state;
+    const { archivedProjects } = this.state;
 
     return (
       <BrowserRouter>
@@ -194,20 +148,12 @@ class App extends Component {
               <Route
                 exact
                 path="/"
-                render={() => (
-                  <HomePage
-                    projects={projects}
-                  />
-                )}
+                component={HomePage}
               />
               <Route
                 path="/archive"
                 exact
-                render={() => (
-                  <HomePage
-                    projects={archivedProjects}
-                  />
-                )}
+                component={HomePage}
               />
               <Route
                 path="/archive/:name"
@@ -229,24 +175,8 @@ class App extends Component {
               <Route
                 path="/projects/:name"
                 render={(props) => {
-                  const project = this.filterProject('name', props.match.params.name, projects);
-                  const totalSessionsTime = this.getTotalSessionsTime(project.sessions);
-
                   return (
-                    <ActiveProject
-                      projects={projects}
-                      handleEditProject={this.handleEditProject}
-                      startSession={this.startSession}
-                      activeSession={this.state.activeSession}
-                      endSession={this.endSession}
-                      cancelSession={this.cancelSession}
-                      currentProject={project}
-                      formatTime={this.formatTime}
-                      totalSessionsTime={this.formatTime(totalSessionsTime)}
-                      handleDeleteProject={this.handleDeleteProject}
-                      handleFinishProject={this.handleFinishProject}
-                      {...props}
-                    />
+                    <ActiveProject {...props} />
                   );
                 }
                 }
@@ -261,16 +191,12 @@ class App extends Component {
                 )}
               />
               <Route
-                path="/edit-project/:name"
-                render={(props) => {
-                  const project = this.filterProject('name', props.match.params.name, projects);
-                  return (<ProjectForm
-                    handleEditProject={this.handleEditProject}
-                    currentProject={project}
+                path="/edit-project/:id"
+                render={props => (
+                  <ProjectForm
                     edit
                     {...props}
-                  />);
-                }}
+                  />)}
               />
               <Route component={NotFound} />
             </Switch>
@@ -281,4 +207,10 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projects,
+  }
+}
+
+export default connect(mapStateToProps)(App);
