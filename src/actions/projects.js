@@ -4,7 +4,7 @@ import moment from 'moment';
 // ADD_PROJECT
 // EDIT_PROJECT
 // DELETE_PROJECT
-// TOGGLE_PROJECT -finished / not finised
+// FINISH_PROJECT
 
 export const addProject = ({ name, description } = {}) => {
   const project = {
@@ -13,8 +13,7 @@ export const addProject = ({ name, description } = {}) => {
     description: description.toLowerCase().trim(),
     sessions: [],
     startDate: moment().unix(),
-    archived: false,
-    archivedDates: [],
+    archived: '',
   };
 
   return {
@@ -35,6 +34,7 @@ export const deleteProject = id => ({
 });
 
 export const toggleProject = id => ({
-  type: 'TOGGLE_PROJECT',
+  type: 'FINISH_PROJECT',
   id,
 });
+
