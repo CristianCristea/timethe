@@ -58,7 +58,10 @@ class EndSessionModal extends React.Component {
 
     this.toggle();
     // add action addSesion to projects action creator and to reducer, import it
-    editProject(currentProject.id, Object.assign(currentProject, { sessions: currentProject.sessions.concat(session) }));
+    editProject(
+      currentProject.id,
+      Object.assign(currentProject, { sessions: currentProject.sessions.concat(session) })
+    );
     toggleIsSessionActive(isSessionActive);
   }
 
@@ -118,22 +121,14 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(EndSessionModal);
 
 EndSessionModal.propTypes = {
-  // className: PropTypes.string,
   seconds: PropTypes.number.isRequired,
-  // endSession: PropTypes.func.isRequired,
   currentProject: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    sessions: PropTypes.arrayOf(PropTypes.shape({
-      date: PropTypes.string,
-      note: PropTypes.string,
-      seconds: PropTypes.number,
-    })),
+    sessions: PropTypes.array.isRequired,
     startDate: PropTypes.number.isRequired,
   }).isRequired,
+  toggleIsSessionActive: PropTypes.func.isRequired,
+  isSessionActive: PropTypes.bool.isRequired,
 };
-
-// EndSessionModal.defaultProps = {
-//   className: '',
-// };
