@@ -143,4 +143,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(Timer);
 Timer.propTypes = {
   isSessionActive: PropTypes.bool.isRequired,
   toggleIsSessionActive: PropTypes.func.isRequired,
+  projectName: PropTypes.string.isRequired,
 };
