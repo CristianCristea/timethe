@@ -6,7 +6,7 @@ import moment from 'moment';
 // DELETE_PROJECT
 // FINISH_PROJECT
 
-export const addProject = ({ name, description } = {}) => {
+export const addProject = ({ name = '', description = '' }) => {
   const project = {
     id: uuid(),
     name: name.toLowerCase().trim(),
@@ -33,7 +33,7 @@ export const deleteProject = id => ({
   id,
 });
 
-export const toggleProject = id => ({
+export const finishProject = id => ({
   type: 'FINISH_PROJECT',
   id,
 });
