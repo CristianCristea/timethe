@@ -5,7 +5,7 @@ import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 import './project.css';
 
 export default function Project({ project }) {
-  const link = project.archiveDate
+  const link = project.archived
     ? `/archive/${project.name.toLowerCase()}`
     : `/projects/${project.name.toLowerCase()}`;
 
