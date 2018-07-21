@@ -34,32 +34,32 @@
 - on archived project page - display single project info - print
 - data persistance - localStorage
 - generate PDF to download
-
-
 - add redux
   - added projects action creators, reducer, createStore
-DONE:
-  - dispatch action creators on user interaction
-  - connect components to store
-  - rethink how a project is edited based on the action
-  - connect homepage - display projects based on active or archive
-  - edit project
+
+### DONE:
+
+- dispatch action creators on user interaction
+- connect components to store
+- rethink how a project is edited based on the action
+- connect homepage - display projects based on active or archive
+- edit project
+- sessions:
+- timer component state
+  - connect timer to state
+  - toggle-isSessonActive on cancel
+  - cancel session - toggle isSessionActive: boolean
+- add session to project sessions - see EndSessionModal component
+- create selector for currentProject
+- display sessions
+- display project total worked time
+- archive single project - update page view
+
+### TODO:
 
 
-  - sessions:
-  - timer component state
-    - connect timer to state
-    - toggle-isSessonActive on cancel
-    - cancel session - toggle isSessionActive: boolean
-  - add session to project sessions - see EndSessionModal component
-  - create selector for currentProject
-
-TODO:
-  - display sessions
-  - display total project time
-  - archive single project - update page view
-
-  - localStorage - new action or new reducer?
-  - add filters: text search, date
-  - connect to firebase
-  - add auth
+- localStorage - new action or new reducer?
+- add filters: text search, date
+- tests
+- connect to firebase
+- add auth
