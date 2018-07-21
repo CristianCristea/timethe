@@ -1,4 +1,3 @@
-
 /* global describe, it, expect */
 
 import { addProject, editProject, deleteProject, finishProject } from '../../src/actions/projects';
