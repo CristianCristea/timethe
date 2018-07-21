@@ -11,7 +11,7 @@ import AlertBar from '../../UI/AlertBar';
 import Sessions from '../../Sessions';
 
 import { toggleIsSessionActive } from '../../../actions/helpers';
-import { selectProject } from '../../../selectors/projects';
+import { selectProject, getTotalSessionsTime, formatTime } from '../../../selectors/projects';
 import './ActiveProject.css';
 
 function ActiveProject({
@@ -25,8 +25,8 @@ function ActiveProject({
     name,
     description,
     id,
-    sessions,
   } = project;
+  const totalSessionsTime = getTotalSessionsTime(project.sessions);
 
   return (
     <div className="ActiveProject">
@@ -47,7 +47,7 @@ function ActiveProject({
                       padding: '.7rem',
                     }}
                   >
-                    {'totalSessionsTime'}
+                    {formatTime(totalSessionsTime)}
                   </Badge>
                 </h5>
               </Col>
@@ -110,14 +110,14 @@ function ActiveProject({
             {
               // display Timer only if one session is active
               // start timer on component mount
-              isSessionActive && <Timer projectName={match.params.name} />
+              isSessionActive && <Timer projectName={name} />
             }
           </Col>
         </Row>
         <Row>
           <Col>
             <h4>Sessions</h4>
-
+            <Sessions projectName={match.params.name} />
           </Col>
         </Row>
       </Container>
