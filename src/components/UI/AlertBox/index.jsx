@@ -8,7 +8,7 @@ import {
   ModalFooter,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { deleteProject, toggleProject } from '../../../actions/projects';
+import { deleteProject, finishProject } from '../../../actions/projects';
 
 class AlertBox extends React.Component {
   constructor(props) {
@@ -30,17 +30,21 @@ class AlertBox extends React.Component {
     const {
       deleteP,
       projectId,
+      deleteProject,
+      finishProject,
+      history,
     } = this.props;
 
     if (deleteP) {
-      this.props.deleteProject(projectId);
+      deleteProject(projectId);
     } else {
-      this.props.toggleProject(projectId);
+      finishProject(projectId);
     }
 
+    // hide popup
     this.toggle();
     // redirect to dashboard after form submision
-    this.props.history.push('/');
+    history.push('/');
   }
 
   render() {
@@ -77,11 +81,11 @@ class AlertBox extends React.Component {
 
 const mapDispatchToProps = {
   deleteProject,
-  toggleProject,
+  finishProject,
 };
 
-const mapStateToProps = (state, props) => ({
-  history: props.history,
+const mapStateToProps = (state, ownProps) => ({
+  history: ownProps.history,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlertBox);
@@ -95,6 +99,8 @@ AlertBox.propTypes = {
   deleteP: PropTypes.bool,
   projectId: PropTypes.string.isRequired,
   history: PropTypes.object,
+  deleteProject: PropTypes.func.isRequired,
+  finishProject: PropTypes.func.isRequired,
 };
 
 AlertBox.defaultProps = {
