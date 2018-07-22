@@ -37,7 +37,7 @@
 - add redux
   - added projects action creators, reducer, createStore
 
-### DONE:
+### DONE
 
 - dispatch action creators on user interaction
 - connect components to store
@@ -54,12 +54,12 @@
 - display sessions
 - display project total worked time
 - archive single project - update page view
+- test projects action creators
+- test projects reducer
 
 ### TODO:
 
-
-- localStorage - new action or new reducer?
-- add filters: text search, date
-- tests
 - connect to firebase
 - add auth
+- add filters: text search, date
+- tests
