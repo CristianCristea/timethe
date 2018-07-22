@@ -147,6 +147,7 @@ ActiveProject.propTypes = {
   history: PropTypes.object,
   isSessionActive: PropTypes.bool,
   toggleIsSessionActive: PropTypes.func.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 ActiveProject.defaultProps = {

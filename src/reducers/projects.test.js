@@ -58,7 +58,7 @@ describe('projects reducer', () => {
     const id = '96238fca-d13e-409e-845a-07364a5c4c15';
     const updates = {
       name: 'alphabet.com',
-    }
+    };
     const action = {
       type: 'EDIT_PROJECT',
       id,

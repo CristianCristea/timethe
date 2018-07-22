@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
 import Projects from '../../Projects/index';
 import MainNav from '../../UI/MainNav';
 
 
-export default function HomePage(props) {
+export default function HomePage({ match }) {
   return (
     <div className="homepage">
       <MainNav />
@@ -18,9 +19,11 @@ export default function HomePage(props) {
           </Col>
         </Row>
       </Container>
-
-      <Projects archive={props.match.url} />
-
+      <Projects archive={match.url} />
     </div>
   );
 }
+
+HomePage.propTypes = {
+  match: PropTypes.object.isRequired,
+};

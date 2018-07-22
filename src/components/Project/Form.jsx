@@ -27,6 +27,7 @@ class ProjectForm extends React.Component {
       editProject,
       edit,
       history,
+      match,
     } = this.props;
 
     // add new Project
@@ -41,7 +42,7 @@ class ProjectForm extends React.Component {
         description,
       };
 
-      editProject(this.props.match.params.id, project);
+      editProject(match.params.id, project);
     }
 
     // redirect to dashboard after form submision
@@ -128,6 +129,7 @@ ProjectForm.propTypes = {
   edit: PropTypes.bool,
   currentProject: PropTypes.object,
   history: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
 };
 
 ProjectForm.defaultProps = {
