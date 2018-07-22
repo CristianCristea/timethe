@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render header 1`] = `
+<header>
+  <Jumbotron
+    className="m-0 hero"
+    tag="div"
+  >
+    <Container
+      tag="div"
+    >
+      <Row
+        tag="div"
+      >
+        <Col
+          tag="div"
+          widths={
+            Array [
+              "xs",
+              "sm",
+              "md",
+              "lg",
+              "xl",
+            ]
+          }
+        >
+          <Link
+            className="display-3 m-0 logo"
+            replace={false}
+            to="/"
+          >
+            TIMETHE
+          </Link>
+          <p
+            className="lead"
+          >
+            test
+          </p>
+        </Col>
+      </Row>
+    </Container>
+  </Jumbotron>
+</header>
+`;
