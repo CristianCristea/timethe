@@ -60,6 +60,12 @@
 ### TODO:
 
 - connect to firebase
+  - connect to firebase add project + test
+  - connect to firebase edit project + test
+  - connect to firebase delete project + test
+
+  - connect the finish action + test
+
+- implement uniq project names
 - add auth
 - add filters: text search, date
-- tests
