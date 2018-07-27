@@ -6,8 +6,8 @@ import './project.css';
 
 export default function Project({ project }) {
   const link = project.archived
-    ? `/archive/${project.name.toLowerCase()}`
-    : `/projects/${project.name.toLowerCase()}`;
+    ? `/archive/${project.name}`
+    : `/projects/${project.name}`;
 
   return (
     <li className="project">
