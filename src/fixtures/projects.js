@@ -5,7 +5,7 @@ export default [
     id: '96238fca-d13e-409e-845a-07364a5c4c14',
     name: 'alibaba.com',
     description: 'bulk ware seller',
-    sessions: [],
+    sessions: [{ data: 'Wednesday 1 May 2018', note: 'Plan delivery', seconds: 3500 }],
     startDate: moment(0).add(10, 'days').valueOf(),
     archived: '',
   },
