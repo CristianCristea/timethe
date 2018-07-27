@@ -1,3 +1,4 @@
+/* global window */
 import * as JsPDF from 'jspdf';
 import moment from 'moment';
 import { autoTable } from 'jspdf-autotable';
@@ -6,6 +7,7 @@ export const selectProject = (projects, projectName) => (
   projects.find(project => project.name === projectName));
 
 export const getTotalSessionsTime = (sessions) => {
+  if (typeof sessions === 'undefined') return 0;
   return sessions.reduce((sum, session) => (sum += session.seconds), 0);
 };
 
