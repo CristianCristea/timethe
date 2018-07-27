@@ -7,8 +7,9 @@ import {
   ModalBody,
   ModalFooter,
 } from 'reactstrap';
+import moment from 'moment';
 import { connect } from 'react-redux';
-import { deleteProject, finishProject } from '../../../actions/projects';
+import { startDeleteProject, startEditProject } from '../../../actions/projects';
 
 class AlertBox extends React.Component {
   constructor(props) {
@@ -30,15 +31,15 @@ class AlertBox extends React.Component {
     const {
       deleteP,
       projectId,
-      deleteProject,
-      finishProject,
+      startDeleteProject,
+      startEditProject,
       history,
     } = this.props;
 
     if (deleteP) {
-      deleteProject(projectId);
+      startDeleteProject(projectId);
     } else {
-      finishProject(projectId);
+      startEditProject(projectId, { archived: moment().format('dddd, DD MM YYYY') });
     }
 
     // hide popup
@@ -80,8 +81,8 @@ class AlertBox extends React.Component {
 }
 
 const mapDispatchToProps = {
-  deleteProject,
-  finishProject,
+  startDeleteProject,
+  startEditProject,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -99,8 +100,8 @@ AlertBox.propTypes = {
   deleteP: PropTypes.bool,
   projectId: PropTypes.string.isRequired,
   history: PropTypes.object,
-  deleteProject: PropTypes.func.isRequired,
-  finishProject: PropTypes.func.isRequired,
+  startDeleteProject: PropTypes.func.isRequired,
+  startEditProject: PropTypes.func.isRequired,
 };
 
 AlertBox.defaultProps = {

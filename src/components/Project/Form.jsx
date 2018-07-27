@@ -10,7 +10,7 @@ import {
   Input,
 } from 'reactstrap';
 import { connect } from 'react-redux';
-import { addProject, editProject } from '../../actions/projects';
+import { startAddProject, startEditProject } from '../../actions/projects';
 import './form.css';
 
 class ProjectForm extends React.Component {
@@ -21,10 +21,12 @@ class ProjectForm extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const { name, description } = this.state;
+    const name = this.state.name.trim();
+    const description = this.state.description.trim();
+
     const {
-      addProject,
-      editProject,
+      startAddProject,
+      startEditProject,
       edit,
       history,
       match,
@@ -32,21 +34,21 @@ class ProjectForm extends React.Component {
 
     // add new Project
     if (!edit) {
-      addProject({ name, description });
+      startAddProject({ name, description });
     }
 
     // edit Project
     if (edit) {
       const project = {
-        name: name.toLowerCase(),
+        name,
         description,
       };
 
-      editProject(match.params.id, project);
+      startEditProject(match.params.id, project);
     }
 
     // redirect to dashboard after form submision
-    history.push(`/projects/${this.state.name.toLowerCase()}`);
+    history.push('/');
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
@@ -119,8 +121,8 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = {
-  addProject,
-  editProject,
+  startAddProject,
+  startEditProject,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

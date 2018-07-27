@@ -7,7 +7,9 @@ import { selectProject, formatTime } from '../../selectors/projects';
 import Session from '../Session';
 
 const Sessions = ({ currentProject }) => {
-  const { sessions } = currentProject;
+  // firebase does not store empty objects
+  // if the project has no sessions yet set project.sessions to an empty array
+  const { sessions = [] } = currentProject;
 
   return (
     <div className="table-responsive">

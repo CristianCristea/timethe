@@ -14,7 +14,7 @@ import {
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { toggleIsSessionActive } from '../../../actions/helpers';
-import { editProject } from '../../../actions/projects';
+import { startEditProject } from '../../../actions/projects';
 import { selectProject } from '../../../selectors/projects';
 
 
@@ -45,7 +45,7 @@ class EndSessionModal extends React.Component {
     const {
       seconds,
       currentProject,
-      editProject,
+      startEditProject,
       toggleIsSessionActive,
       isSessionActive,
     } = this.props;
@@ -56,11 +56,17 @@ class EndSessionModal extends React.Component {
       seconds,
     };
 
+    if (!currentProject.sessions) currentProject.sessions = [];
+
     this.toggle();
-    // add action addSesion to projects action creator and to reducer, import it
-    editProject(
+
+    // firebase does not accept arrays
+    // use firebase push work-around in the edit action ?
+    startEditProject(
       currentProject.id,
-      Object.assign(currentProject, { sessions: currentProject.sessions.concat(session) })
+
+      { sessions: currentProject.sessions.concat(session) },
+
     );
     toggleIsSessionActive(isSessionActive);
   }
@@ -115,20 +121,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = {
   toggleIsSessionActive,
-  editProject,
+  startEditProject,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(EndSessionModal);
 
 EndSessionModal.propTypes = {
   seconds: PropTypes.number.isRequired,
-  currentProject: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    sessions: PropTypes.array.isRequired,
-    startDate: PropTypes.number.isRequired,
-  }).isRequired,
+  currentProject: PropTypes.object.isRequired,
   toggleIsSessionActive: PropTypes.func.isRequired,
   isSessionActive: PropTypes.bool.isRequired,
 };
