@@ -5,6 +5,8 @@
 
 # testing
 /coverage
+.env.test
+.env.development
 
 # production
 /build
