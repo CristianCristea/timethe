@@ -84,25 +84,13 @@ describe('projects reducer', () => {
     expect(state).toEqual(projects);
   });
 
-  it('should finish a project', () => {
-    const id = '96238fca-d13e-409e-845a-07364a5c4c15';
+  it('should set projects', () => {
     const action = {
-      type: 'FINISH_PROJECT',
-      id,
+      type: 'SET_PROJECTS',
+      projects: [projects[2]],
     };
     const state = projectsReducer(projects, action);
 
-    expect(state[1].archived).toBe(moment().format('dddd, DD MM YYYY'));
-  });
-
-  it('should not finish a project with an invalid id', () => {
-    const id = '-1';
-    const action = {
-      type: 'FINISH_PROJECT',
-      id,
-    };
-    const state = projectsReducer(projects, action);
-
-    expect(state[1].archived).toBe('');
+    expect(state).toEqual([projects[2]]);
   });
 });

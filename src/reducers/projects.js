@@ -1,5 +1,3 @@
-import moment from 'moment';
-
 const projectsReducerDefaultState = [];
 
 export default (state = projectsReducerDefaultState, action) => {
@@ -8,17 +6,6 @@ export default (state = projectsReducerDefaultState, action) => {
       return [...state, action.project];
     case 'DELETE_PROJECT':
       return state.filter(p => p.id !== action.id);
-    case 'FINISH_PROJECT':
-      // change the archived prop value
-      return state.map((project) => {
-        if (project.id === action.id) {
-          return {
-            ...project,
-            archived: moment().format('dddd, DD MM YYYY'),
-          };
-        }
-        return project;
-      });
     case 'EDIT_PROJECT':
       return state.map((project) => {
         if (project.id === action.id) {
@@ -30,6 +17,8 @@ export default (state = projectsReducerDefaultState, action) => {
 
         return project;
       });
+    case 'SET_PROJECTS':
+      return action.projects;
     default: return state;
   }
 };
