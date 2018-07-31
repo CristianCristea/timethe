@@ -12,7 +12,7 @@ import {
   startSetProjects,
   startDeleteProject,
   startEditProject,
-} from '../../src/actions/projects';
+} from './projects';
 
 const createMockStore = configureMockStore([thunk]);
 
@@ -165,7 +165,7 @@ describe('project actions', () => {
 
       expect(actions[0]).toEqual({
         type: 'SET_PROJECTS',
-        firebaseProjects,
+        projects: firebaseProjects,
       });
     });
     done();
