@@ -6,7 +6,7 @@ import Projects from '../../Projects/index';
 import MainNav from '../../UI/MainNav';
 
 
-export default function HomePage({ match }) {
+export default function Dashboard({ match }) {
   return (
     <div className="homepage">
       <MainNav />
@@ -24,6 +24,6 @@ export default function HomePage({ match }) {
   );
 }
 
-HomePage.propTypes = {
+Dashboard.propTypes = {
   match: PropTypes.object.isRequired,
 };
