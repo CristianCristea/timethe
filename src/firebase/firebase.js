@@ -1,5 +1,7 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
+import * as firebase from 'firebase';
+// import firebase from 'firebase/app';
+// import 'firebase/database';
+// import 'firebase/auth';
 // set the database values to the env variables
 // the values are provided based on the env (test or dev) in the index.js file
 
@@ -17,5 +19,6 @@ const config = {
 
 firebase.initializeApp(config);
 const database = firebase.database();
+const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
 
-export { firebase, database as default };
+export { firebase, googleAuthProvider, database as default };
