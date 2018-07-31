@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should correctly display the login page 1`] = `
+<Container
+  tag="div"
+>
+  <Row
+    tag="div"
+  >
+    <Col
+      tag="div"
+      widths={
+        Array [
+          "xs",
+          "sm",
+          "md",
+          "lg",
+          "xl",
+        ]
+      }
+    >
+      <Jumbotron
+        className="mt-4"
+        tag="div"
+      >
+        <h4>
+          Welcome to TIMETHE
+        </h4>
+        <button
+          onClick={[Function]}
+        >
+          Login
+        </button>
+      </Jumbotron>
+    </Col>
+  </Row>
+</Container>
+`;
