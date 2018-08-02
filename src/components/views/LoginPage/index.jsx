@@ -2,14 +2,19 @@ import React from 'react';
 import { Container, Row, Col, Jumbotron } from 'reactstrap';
 import { connect } from 'react-redux';
 import { startLogin } from '../../../actions/auth';
+import GoogleButton from 'react-google-button';
+import './LoginPage.css';
 
 export const LoginPage = ({ startLogin }) => (
-  <Container>
+  <Container className="login-page">
     <Row>
       <Col>
-        <Jumbotron className="mt-4">
-          <h4>Welcome to TIMETHE</h4>
-          <button onClick={startLogin}>Login</button>
+        <Jumbotron className="login-page__jumbotron">
+          <h4 className="mb-5">Project time tracker</h4>
+          <GoogleButton
+            className="login-page__google-signin-btn"
+            onClick={startLogin}
+          />
         </Jumbotron>
       </Col>
     </Row>
