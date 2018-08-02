@@ -3,7 +3,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-// import dotenv from 'dotenv';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { firebase } from './firebase/firebase';
 import configureStore from './store/configureStore';
@@ -12,13 +11,6 @@ import { startSetProjects } from './actions/projects';
 import { login, logout } from './actions/auth';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-
-// set the values for firebase config based on the env test or develoopment
-// if (process.env.NODE_ENV === 'development') {
-//   dotenv.config({ path: '../.env.development' });
-// } else if (process.env.NODE_ENV === 'test') {
-//   dotenv.config({ path: '../.env.test' });
-// }
 
 const store = configureStore();
 const jsx = (
