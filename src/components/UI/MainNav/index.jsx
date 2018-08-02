@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import {
   Collapse,
   Navbar,
@@ -9,9 +10,11 @@ import {
   NavItem,
   Container,
 } from 'reactstrap';
+import { connect } from 'react-redux';
+import { startLogout } from '../../../actions/auth';
 import './MainNav.css';
 
-export default class MainNav extends React.Component {
+export class MainNav extends React.Component {
   constructor(props) {
     super(props);
 
@@ -26,28 +29,36 @@ export default class MainNav extends React.Component {
     });
   }
   render() {
+    const { startLogout: logout } = this.props;
+
     return (
       <div className="MainNav">
         <Navbar dark expand="md" className="mb-5">
           <Container>
-            <NavbarBrand href="/">T</NavbarBrand>
+            <NavbarBrand href="/dashboard">T</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="pl-3 text-center">
-                <NavItem className="main-nav-link">
+                <NavItem>
                   <NavLink
-                    className="nav-link"
                     activeClassName="active"
-                    to="/"
+                    className="nav-link"
+                    to="/dashboard"
                     exact
                   >
                     Projects
                   </NavLink>
                 </NavItem>
-                <NavItem className="main-nav-link">
-                  <NavLink className="nav-link" activeClassName="active" to="/archive">Archive</NavLink>
+                <NavItem>
+                  <NavLink activeClassName="active" className="nav-link" to="/archive">Archive</NavLink>
                 </NavItem>
               </Nav>
+              <button
+                className="nav__button nav-link ml-auto nav-link"
+                onClick={logout}
+              >
+                Logout
+              </button>
             </Collapse>
           </Container>
         </Navbar>
@@ -55,3 +66,14 @@ export default class MainNav extends React.Component {
     );
   }
 }
+
+const mapDispatchToProps = dispatch => ({
+  startLogout: () => dispatch(startLogout()),
+});
+
+export default connect(undefined, mapDispatchToProps)(MainNav);
+
+
+MainNav.propTypes = {
+  startLogout: PropTypes.func.isRequired,
+};

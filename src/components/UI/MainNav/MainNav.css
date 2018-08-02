@@ -30,5 +30,10 @@
 .MainNav {
   background-color: #0A3A56; }
 
-.main-nav-link {
-  font-weight: 600; }
+.nav__button {
+  background: none;
+  border: none;
+  padding-top: 10px;
+  color: #fff; }
+  .nav__button:hover {
+    cursor: pointer; }
