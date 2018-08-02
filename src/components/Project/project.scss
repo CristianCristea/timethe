@@ -1,10 +1,6 @@
 // import variables - colors;
 @import '../../scss/config';
 
-.project {
-  margin-bottom: 1em;
-}
-
 .project-link {
   &:hover {
     text-decoration: none;
@@ -12,23 +8,27 @@
 }
 
 .project-card {
-  border-width: 2px;
-  border-radius: 10px;
+  border-radius: 0;
   transition: all 0.4s;
-  height: 300px;
   overflow: hidden;
 
   &:hover {
     cursor: pointer;
-    border-color: $primary-accent-color;
-    border-width: 2px;
+    background-color: $light-gray;
   }
 }
 
-.project-card-body {
+.project__card-body {
   color: initial;
+  display: flex;
+  justify-content: space-between;
 }
 
-.project-card-title {
+.project__date {
+  color: $gray;
+}
+
+.project__card-title {
   text-transform: capitalize;
+  font-weight: 500;
 }
