@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Container, Row, Col } from 'reactstrap';
-import Projects from '../../Projects/index';
+import Projects from '../../Projects';
 import MainNav from '../../UI/MainNav';
 
 
