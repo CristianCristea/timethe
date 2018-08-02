@@ -7,11 +7,11 @@ import './header.css';
 export default function Header({ title, subtitle }) {
   return (
     <header>
-      <Jumbotron className="m-0 hero">
+      <Jumbotron className="m-0 hero text-center">
         <Container>
           <Row>
             <Col>
-              <Link to="/" className="display-3 m-0 logo">
+              <Link to="/dashboard" className="display-3 m-0 logo">
                 {title}
               </Link>
               <p className="lead">{subtitle}</p>

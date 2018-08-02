@@ -27,7 +27,7 @@ exports[`should render header 1`] = `
           <Link
             className="display-3 m-0 logo"
             replace={false}
-            to="/"
+            to="/dashboard"
           >
             TIMETHE
           </Link>
