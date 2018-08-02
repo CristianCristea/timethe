@@ -15,6 +15,9 @@ import {
 } from './projects';
 
 const createMockStore = configureMockStore([thunk]);
+const uid = 'userTestID';
+// default user auth for mock store
+const defaultAuthState = { auth: { uid } };
 
 beforeEach((done) => {
   const projectsData = {};
@@ -37,7 +40,7 @@ beforeEach((done) => {
       archived,
     };
   });
-  database.ref('projects').set(projectsData).then(() => done());
+  database.ref(`users/${uid}/projects`).set(projectsData).then(() => done());
 });
 
 describe('project actions', () => {
@@ -52,7 +55,7 @@ describe('project actions', () => {
 
   // for async test use done arg, call it after assertions
   it('should add project to database and store', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const projectData = {
       name: 'test name',
       description: 'test desc',
@@ -64,7 +67,6 @@ describe('project actions', () => {
         type: 'ADD_PROJECT',
         project: {
           id: expect.any(String),
-          sessions: [],
           startDate: expect.any(Number),
           archived: '',
           ...projectData,
@@ -73,7 +75,7 @@ describe('project actions', () => {
 
       // return promise for chaining
       // firebase will not set an empty sessions object
-      return database.ref(`projects/${actions[0].project.id}`).once('value');
+      return database.ref(`users/${uid}/projects/${actions[0].project.id}`).once('value');
     }).then((snapshot) => {
       expect(snapshot.val()).toEqual({
         startDate: expect.any(Number),
@@ -98,7 +100,7 @@ describe('project actions', () => {
   });
 
   it('should update the project from firebase', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const { id } = projects[2];
     const updates = { name: 'edited' };
 
@@ -111,7 +113,7 @@ describe('project actions', () => {
           updates,
         });
 
-        return database.ref(`projects/${id}`).once('value');
+        return database.ref(`users/${uid}/projects/${id}`).once('value');
       })
       .then((snapshot) => {
         expect(snapshot.val().name).toBe(updates.name);
@@ -129,15 +131,16 @@ describe('project actions', () => {
   });
 
   it('should remove the project from firebase', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     const { id } = projects[2];
+
     store.dispatch(startDeleteProject(id)).then(() => {
       const actions = store.getActions();
       expect(actions[0]).toEqual({
         type: 'DELETE_PROJECT',
         id,
       });
-      return database.ref(`projects/${id}`).once('value');
+      return database.ref(`users/${uid}/projects/${id}`).once('value');
     }).then((snapshot) => {
       expect(snapshot.val()).toBeFalsy();
       done();
@@ -154,7 +157,7 @@ describe('project actions', () => {
   });
 
   it('should fetch the projects from firebase', (done) => {
-    const store = createMockStore({});
+    const store = createMockStore(defaultAuthState);
     store.dispatch(startSetProjects()).then(() => {
       const actions = store.getActions();
       // delete project.sessions because firebase does not support empty objects
