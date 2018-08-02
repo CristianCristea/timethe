@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { startAddProject, startEditProject } from '../../actions/projects';
 import './form.css';
 
-class ProjectForm extends React.Component {
+export class ProjectForm extends React.Component {
   state = {
     name: this.props.currentProject.name,
     description: this.props.currentProject.description,
@@ -27,17 +27,18 @@ class ProjectForm extends React.Component {
     const {
       startAddProject,
       startEditProject,
-      edit,
       history,
       match,
+      edit,
     } = this.props;
+
 
     // add new Project
     if (!edit) {
       startAddProject({ name, description });
     }
 
-    // edit Project
+    // edit project
     if (edit) {
       const project = {
         name,
@@ -48,7 +49,7 @@ class ProjectForm extends React.Component {
     }
 
     // redirect to dashboard after form submision
-    history.push('/');
+    history.push('/dashboard');
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
@@ -56,8 +57,8 @@ class ProjectForm extends React.Component {
   isFormCompleted = () => (this.state.name.length > 2);
 
   render() {
-    const { edit } = this.props;
     const { name, description } = this.state;
+    const { edit } = this.props;
 
     return (
       <section className="ProjectForm">
@@ -111,13 +112,10 @@ class ProjectForm extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  if (ownProps.edit) {
-    return {
-      currentProject: state.projects.find(p => p.id === ownProps.match.params.id),
-    };
-  }
-
-  return {};
+  return {
+    edit: !!(ownProps.location.pathname !== '/create-project'),
+    currentProject: state.projects.find(p => p.id === ownProps.match.params.id),
+  };
 };
 
 const mapDispatchToProps = {
@@ -128,14 +126,13 @@ const mapDispatchToProps = {
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);
 
 ProjectForm.propTypes = {
-  edit: PropTypes.bool,
+  edit: PropTypes.bool.isRequired,
   currentProject: PropTypes.object,
   history: PropTypes.object.isRequired,
   match: PropTypes.object.isRequired,
 };
 
 ProjectForm.defaultProps = {
-  edit: false,
   currentProject: {
     name: '',
     description: '',
