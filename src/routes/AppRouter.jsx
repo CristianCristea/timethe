@@ -2,6 +2,8 @@ import React from 'react';
 import { Switch, Route, Router } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
 import { connect } from 'react-redux';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 import Header from '../components/UI/Header';
 import ProjectForm from '../components/Project/Form';
 import Dashboard from '../components/views/Dashboard';
@@ -24,42 +26,36 @@ function AppRouter() {
             subtitle="Track the time you work on projects"
           />
           <Switch>
-            <Route
+            <PublicRoute
               exact
               path="/"
               component={LoginPage}
             />
-            <Route
+            <PrivateRoute
               exact
               path="/dashboard"
               component={Dashboard}
             />
-            <Route
+            <PrivateRoute
               path="/archive"
               exact
               component={Dashboard}
             />
-            <Route
+            <PrivateRoute
               path="/archive/:name"
-              render={props => (<ArchiveProject {...props} />)}
+              component={ArchiveProject}
             />
-            <Route
+            <PrivateRoute
               path="/projects/:name"
-              render={props => (<ActiveProject {...props} />)}
+              component={ActiveProject}
             />
-            <Route
+            <PrivateRoute
               path="/create-project"
-              render={props => (
-                <ProjectForm {...props} />
-              )}
+              component={ProjectForm}
             />
-            <Route
+            <PrivateRoute
               path="/edit-project/:id"
-              render={props => (
-                <ProjectForm
-                  edit
-                  {...props}
-                />)}
+              component={ProjectForm}
             />
             <Route component={NotFound} />
           </Switch>
