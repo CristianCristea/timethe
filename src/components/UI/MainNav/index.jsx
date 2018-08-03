@@ -35,7 +35,6 @@ export class MainNav extends React.Component {
       <div className="MainNav">
         <Navbar dark expand="md" className="mb-5">
           <Container>
-            <NavbarBrand href="/dashboard">T</NavbarBrand>
             <NavbarToggler onClick={this.toggle} />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav navbar className="pl-3 text-center">
@@ -43,14 +42,20 @@ export class MainNav extends React.Component {
                   <NavLink
                     activeClassName="active"
                     className="nav-link"
-                    to="/dashboard"
+                    to={`${process.env.PUBLIC_URL}/dashboard`}
                     exact
                   >
                     Projects
                   </NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink activeClassName="active" className="nav-link" to="/archive">Archive</NavLink>
+                  <NavLink
+                    activeClassName="active"
+                    className="nav-link"
+                    to={`${process.env.PUBLIC_URL}/archive`}
+                  >
+                    Archive
+                  </NavLink>
                 </NavItem>
               </Nav>
               <button

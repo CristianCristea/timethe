@@ -41,13 +41,17 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(login(user.uid));
     store.dispatch(startSetProjects()).then(() => {
       renderApp();
-      if (history.location.pathname === '/') {
-        history.push('/dashboard');
+      // process.env.PUBLIC_URL is /timethe in production 
+      console.log('public url: ', process.env.PUBLIC_URL)
+    console.log('loged in')
+      if (history.location.pathname === `${process.env.PUBLIC_URL}/`) {
+        history.push(`${process.env.PUBLIC_URL}/dashboard`);
       }
     });
   } else {
     store.dispatch(logout());
     renderApp();
-    history.push('/');
+    console.log('loged out')
+    history.push(`${process.env.PUBLIC_URL}/`);
   }
 });

@@ -18,7 +18,7 @@ export const history = createHistory();
 
 function AppRouter() {
   return (
-    <Router history={history}>
+    <Router history={history} >
       <div className="app">
         <div className="app-body">
           <Header
@@ -28,33 +28,33 @@ function AppRouter() {
           <Switch>
             <PublicRoute
               exact
-              path="/"
+              path={`${process.env.PUBLIC_URL}/`}
               component={LoginPage}
             />
             <PrivateRoute
               exact
-              path="/dashboard"
+              path={`${process.env.PUBLIC_URL}/dashboard`}
               component={Dashboard}
             />
             <PrivateRoute
-              path="/archive"
+              path={`${process.env.PUBLIC_URL}/archive`}
               exact
               component={Dashboard}
             />
             <PrivateRoute
-              path="/archive/:name"
+              path={`${process.env.PUBLIC_URL}/archive/:name`}
               component={ArchiveProject}
             />
             <PrivateRoute
-              path="/projects/:name"
+              path={`${process.env.PUBLIC_URL}/projects/:name`}
               component={ActiveProject}
             />
             <PrivateRoute
-              path="/create-project"
+              path={`${process.env.PUBLIC_URL}/create-project`}
               component={ProjectForm}
             />
             <PrivateRoute
-              path="/edit-project/:id"
+              path={`${process.env.PUBLIC_URL}/edit-project/:id`}
               component={ProjectForm}
             />
             <Route component={NotFound} />

@@ -11,7 +11,10 @@ export default function Header({ title, subtitle }) {
         <Container>
           <Row>
             <Col>
-              <Link to="/dashboard" className="display-3 m-0 logo">
+              <Link
+                to={`${process.env.PUBLIC_URL}/dashboard`}
+                className="display-3 m-0 logo"
+              >
                 {title}
               </Link>
               <p className="lead">{subtitle}</p>

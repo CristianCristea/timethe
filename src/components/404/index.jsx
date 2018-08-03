@@ -10,13 +10,13 @@ const NotFound = () => (
           <h2>
             The page you are looking does not exist or has been moved.
           </h2>
-          <Link to="/" className="btn btn-secondary mt-5">
+          <Link to={`${process.env.PUBLIC_URL}/`} className="btn btn-secondary mt-5">
             Back to dashboard
           </Link>
         </Jumbotron>
       </Col>
     </Row>
-  </Container>
+  </Container >
 );
 
 export default NotFound;
