@@ -45,7 +45,7 @@ class AlertBox extends React.Component {
     // hide popup
     this.toggle();
     // redirect to dashboard after form submision
-    history.push('/dashboard');
+    history.push(`${process.env.PUBLIC_URL}/dashboard`);
   }
 
   render() {
