@@ -56,7 +56,8 @@
 
 .project__card-text {
   margin-top: 2rem;
-  width: 100%; }
+  width: 100%;
+  color: #75758B; }
   @media screen and (min-width: 760px) {
     .project__card-text {
       max-width: 50%;
