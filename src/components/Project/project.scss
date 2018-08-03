@@ -21,7 +21,12 @@
 .project__card-body {
   color: initial;
   display: flex;
+  flex-flow: nowrap column;
   justify-content: space-between;
+
+  @media screen and (min-width: 768px) {
+    flex-flow: nowrap row;
+  }
 }
 
 .project__date {
@@ -31,4 +36,14 @@
 .project__card-title {
   text-transform: capitalize;
   font-weight: 500;
+}
+
+.project__card-text {
+  margin-top: 2rem;
+  width: 100%;
+
+  @media screen and (min-width: 760px) {
+    max-width: 50%;
+    margin-top: 0;
+  }
 }

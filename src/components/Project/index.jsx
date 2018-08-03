@@ -25,7 +25,7 @@ export default function Project({ project }) {
               <CardTitle tag="h4" className="project__card-title">{name}</CardTitle>
               <div className="project__date">{moment.unix(startDate).format('MMMM Do YYYY')}</div>
             </div>
-            <CardText>{description}</CardText>
+            <CardText className="project__card-text">{description}</CardText>
           </CardBody>
         </Card>
       </Link>
