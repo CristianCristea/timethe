@@ -11,6 +11,6 @@ it('should correctly display the login page', () => {
 it('should call startLogout on buton click', () => {
   const startLogin = jest.fn();
   const wrapper = shallow(<LoginPage startLogin={startLogin} />);
-  wrapper.find('button').simulate('click');
+  wrapper.find('#login-page__google-signin-btn').simulate('click');
   expect(startLogin).toHaveBeenCalled();
 });

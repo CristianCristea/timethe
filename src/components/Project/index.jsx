@@ -13,8 +13,8 @@ export default function Project({ project }) {
     archived,
   } = project;
   const link = archived
-    ? `/archive/${name}`
-    : `/projects/${name}`;
+    ? `${process.env.PUBLIC_URL}/archive/${name}`
+    : `${process.env.PUBLIC_URL}/projects/${name}`;
 
   return (
     <li className="project">

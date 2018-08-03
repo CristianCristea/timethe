@@ -2,6 +2,7 @@
 
 exports[`should correctly display the login page 1`] = `
 <Container
+  className="login-page"
   tag="div"
 >
   <Row
@@ -20,17 +21,22 @@ exports[`should correctly display the login page 1`] = `
       }
     >
       <Jumbotron
-        className="mt-4"
+        className="login-page__jumbotron"
         tag="div"
       >
-        <h4>
-          Welcome to TIMETHE
-        </h4>
-        <button
-          onClick={[Function]}
+        <h4
+          className="mb-5"
         >
-          Login
-        </button>
+          Project time tracker
+        </h4>
+        <GoogleButton
+          className="login-page__google-signin-btn"
+          disabled={false}
+          id="login-page__google-signin-btn"
+          label="Sign in with Google"
+          onClick={[Function]}
+          type="dark"
+        />
       </Jumbotron>
     </Col>
   </Row>

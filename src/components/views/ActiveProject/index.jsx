@@ -60,7 +60,7 @@ function ActiveProject({
           </Col>
           <Col className="ProjectControlBtns mt-3">
             <Link
-              to={`/edit-project/${id}`}
+              to={`${process.env.PUBLIC_URL}/edit-project/${id}`}
               className={`btn btn-warning ${isSessionActive ? 'isDisabled' : ''}`}
             >
               Edit

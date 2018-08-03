@@ -49,7 +49,7 @@ export class ProjectForm extends React.Component {
     }
 
     // redirect to dashboard after form submision
-    history.push('/dashboard');
+    history.push(`${process.env.PUBLIC_URL}/dashboard`);
   }
 
   handleTextChange = e => (this.setState({ [e.target.name]: e.target.value }));
@@ -113,7 +113,7 @@ export class ProjectForm extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    edit: !!(ownProps.location.pathname !== '/create-project'),
+    edit: !!(ownProps.location.pathname !== `${process.env.PUBLIC_URL}/create-project`),
     currentProject: state.projects.find(p => p.id === ownProps.match.params.id),
   };
 };

@@ -13,7 +13,7 @@ export default function Dashboard({ match }) {
       <Container>
         <Row>
           <Col>
-            <Link to="/create-project" className="btn btn-success btn-lg mb-5">
+            <Link to={`${process.env.PUBLIC_URL}/create-project`} className="btn btn-success btn-lg mb-5">
               Create Project
             </Link>
           </Col>

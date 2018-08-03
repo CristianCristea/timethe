@@ -41,9 +41,7 @@ firebase.auth().onAuthStateChanged((user) => {
     store.dispatch(login(user.uid));
     store.dispatch(startSetProjects()).then(() => {
       renderApp();
-      // process.env.PUBLIC_URL is /timethe in production 
-      console.log('public url: ', process.env.PUBLIC_URL)
-    console.log('loged in')
+      // process.env.PUBLIC_URL is /timethe in production
       if (history.location.pathname === `${process.env.PUBLIC_URL}/`) {
         history.push(`${process.env.PUBLIC_URL}/dashboard`);
       }
@@ -51,7 +49,6 @@ firebase.auth().onAuthStateChanged((user) => {
   } else {
     store.dispatch(logout());
     renderApp();
-    console.log('loged out')
     history.push(`${process.env.PUBLIC_URL}/`);
   }
 });

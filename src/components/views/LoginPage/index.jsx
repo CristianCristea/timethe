@@ -13,6 +13,7 @@ export const LoginPage = ({ startLogin }) => (
           <h4 className="mb-5">Project time tracker</h4>
           <GoogleButton
             className="login-page__google-signin-btn"
+            id="login-page__google-signin-btn"
             onClick={startLogin}
           />
         </Jumbotron>
