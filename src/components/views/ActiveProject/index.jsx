@@ -32,17 +32,17 @@ function ActiveProject({
     <div className="ActiveProject">
       <MainNav />
       <Container>
-        <Row className="ProjectDetails">
+        <Row className="ActiveProject__details">
           <Col md="10" className="mb-5">
-            <Row className="project">
+            <Row className="ActiveProject__header">
               <Col>
-                <h3 className="display-4 project-name">{name}</h3>
+                <h3 className="display-4 ActiveProject__name">{name}</h3>
               </Col>
               <Col>
                 <h5 className="pt-3">
                   <Badge
-                    color="secondary"
                     style={{
+                      backgroundColor: '#0070AF',
                       fontSize: '1.2rem',
                       padding: '.7rem',
                     }}
@@ -54,11 +54,11 @@ function ActiveProject({
             </Row>
             <Row>
               <Col>
-                <p className="lead">{description}</p>
+                <p className="lead ActiveProject__description">{description}</p>
               </Col>
             </Row>
           </Col>
-          <Col className="ProjectControlBtns mt-3">
+          <Col className="ActiveProject__control-btns mt-3">
             <Link
               to={`${process.env.PUBLIC_URL}/edit-project/${id}`}
               className={`btn btn-warning ${isSessionActive ? 'isDisabled' : ''}`}
@@ -86,10 +86,10 @@ function ActiveProject({
         </Row>
 
         <Row>
-          <Col className="mt-4 mb-4 p-0">
+          <Col className="mt-4 mb-4 p-0 ActiveProject__sessions">
             {!isSessionActive &&
               <Button
-                className="mb-5 mt-5 btn-lg"
+                className="mb-5 mt-5 btn-lg ActiveProject__start-session-btn"
                 color="primary"
                 onClick={() => {
                   if (!isSessionActive) {

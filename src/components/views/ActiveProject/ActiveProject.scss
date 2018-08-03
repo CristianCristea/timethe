@@ -1,16 +1,39 @@
 // import variables - colors;
-@import '../../../scss/config'; 
+@import '../../../scss/config';
 
-.ProjectDetails {
+.ActiveProject__details {
   border: 1px solid #ccc;
   padding: 2rem;
   margin-top: 5rem;
   border-radius: 10px;
+}
 
-  .lead {
-    text-align: justify;
+.ActiveProject__description {
+  text-align: justify;
+  color: $gray;
+}
+
+.ActiveProject__header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  @media screen and (min-width: 768px) {
+    text-align: left;
+    margin-bottom: 0;
   }
-  
+}
+
+.ActiveProject__name {
+  text-transform: capitalize;
+}
+
+.ActiveProject__control-btns {
+  text-align: center;
+
+  @media screen and (min-width: 768px) {
+    text-align: right;
+  }
+
   a, button {
     width: 100px !important;
     color: #fff;
@@ -22,15 +45,10 @@
   }
 }
 
-.project-name {
-  text-transform: capitalize;
-}
-
-.ProjectControlBtns {
+.ActiveProject__sessions {
   text-align: center;
-  
-  @media screen and (min-width: 576px) {
-    text-align: right;
-  }
 
+  @media screen and (min-width: 768px) {
+    text-align: left;
+  }
 }

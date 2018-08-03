@@ -27,25 +27,41 @@
   opacity: 0.5;
   text-decoration: none; }
 
-.ProjectDetails {
+.ActiveProject__details {
   border: 1px solid #ccc;
   padding: 2rem;
   margin-top: 5rem;
   border-radius: 10px; }
-  .ProjectDetails .lead {
-    text-align: justify; }
-  .ProjectDetails a, .ProjectDetails button {
+
+.ActiveProject__description {
+  text-align: justify;
+  color: #75758B; }
+
+.ActiveProject__header {
+  text-align: center;
+  margin-bottom: 3rem; }
+  @media screen and (min-width: 768px) {
+    .ActiveProject__header {
+      text-align: left;
+      margin-bottom: 0; } }
+
+.ActiveProject__name {
+  text-transform: capitalize; }
+
+.ActiveProject__control-btns {
+  text-align: center; }
+  @media screen and (min-width: 768px) {
+    .ActiveProject__control-btns {
+      text-align: right; } }
+  .ActiveProject__control-btns a, .ActiveProject__control-btns button {
     width: 100px !important;
     color: #fff;
     margin-bottom: 1rem; }
-    .ProjectDetails a:hover, .ProjectDetails button:hover {
+    .ActiveProject__control-btns a:hover, .ActiveProject__control-btns button:hover {
       color: #fff; }
 
-.project-name {
-  text-transform: capitalize; }
-
-.ProjectControlBtns {
+.ActiveProject__sessions {
   text-align: center; }
-  @media screen and (min-width: 576px) {
-    .ProjectControlBtns {
-      text-align: right; } }
+  @media screen and (min-width: 768px) {
+    .ActiveProject__sessions {
+      text-align: left; } }
