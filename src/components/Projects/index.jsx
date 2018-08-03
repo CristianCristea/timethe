@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Table } from 'reactstrap';
+import { Container, Row, Col } from 'reactstrap';
 import Project from '../Project';
 import './projects.css';
 
