@@ -45,9 +45,6 @@
       text-align: left;
       margin-bottom: 0; } }
 
-.ActiveProject__name {
-  text-transform: capitalize; }
-
 .ActiveProject__control-btns {
   text-align: center; }
   @media screen and (min-width: 768px) {
