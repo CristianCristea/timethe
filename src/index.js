@@ -7,10 +7,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { firebase } from './firebase/firebase';
 import configureStore from './store/configureStore';
 import AppRouter, { history } from './routes/AppRouter';
+import LoadingPage from './components/UI/LoadingPage';
 import { startSetProjects } from './actions/projects';
 import { login, logout } from './actions/auth';
 import './index.css';
-import registerServiceWorker from './registerServiceWorker';
+// import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
 const jsx = (
@@ -27,9 +28,9 @@ const renderApp = () => {
   }
 };
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
+ReactDOM.render(<LoadingPage />, document.getElementById('root'));
 
-registerServiceWorker();
+// registerServiceWorker();
 
 // firebase auth
 // user.uid is provided by firebase

@@ -1,0 +1,10 @@
+.LoadingPage {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+
+.LoadingPage__image {
+  height: 5rem;
+  width: 5rem; }
