@@ -1,7 +1,7 @@
-import * as firebase from 'firebase';
-// import firebase from 'firebase/app';
-// import 'firebase/database';
-// import 'firebase/auth';
+// import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
+import 'firebase/auth';
 // set the database values to the env variables
 // the values are provided based on the env (test or dev) in the index.js file
 
