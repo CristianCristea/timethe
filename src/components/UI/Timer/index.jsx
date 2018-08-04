@@ -67,7 +67,7 @@ class Timer extends React.Component {
   formatClock = ({ seconds } = this.state) => {
     const s = seconds % 60;
     const m = Math.floor((seconds / 60) % 60);
-    let h = Math.floor(m / 60);
+    let h = Math.floor(seconds / 3600);
 
     if (h >= 24) {
       h = 0;
